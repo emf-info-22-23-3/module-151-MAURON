@@ -1,10 +1,3 @@
-/*
- * Couche de services HTTP (worker).
- *
- * @author Olivier Neuhaus
- * @version 1.0 / 20-SEP-2013
- */
-
 var BASE_URL = "http://localhost:8080/exercices/exercice6/serveur.php";
 
 /**
@@ -17,6 +10,7 @@ function chargerTeam(successCallback, errorCallback) {
     type: "GET",
     dataType: "xml",
     url: BASE_URL,
+    data: "action=equipe",
     success: successCallback,
     error: errorCallback
     });
