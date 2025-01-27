@@ -10,7 +10,7 @@ function chargerTeam(successCallback, errorCallback) {
     type: "GET",
     dataType: "xml",
     url: BASE_URL,
-    data: "action=equipe",
+    data: 'action=equipes',
     success: successCallback,
     error: errorCallback
     });
