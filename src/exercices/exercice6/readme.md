@@ -22,9 +22,9 @@ https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php
 	<?php
 	class Membre
 	{
-	        public $nom;
-	        public $numero;
-	        public function construct($nom, $numero)
+	        private $nom;
+	        private $numero;
+	        public function _construct($nom, $numero)
 	        {
 	                $this->nom = $nom;
 	                $this->numero = $numero;
