@@ -30,6 +30,7 @@ function chargerTeamError(request, status, error) {
 $(document).ready(function () {
     $.getScript("javascripts/serviceHttp.js", function () {
         console.log("servicesHttp.js chargé !");
+        chargerTeam(chargerTeamSuccess, chargerTeamError);
     });
-    chargerTeam(chargerTeamSuccess, chargerTeamError);
+    
 });
