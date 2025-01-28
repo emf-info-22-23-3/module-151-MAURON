@@ -22,8 +22,8 @@ function chargerTeamSuccess(data, text, jqXHR) {
         cmbEquipes.options[cmbEquipes.options.length] = new Option(equipe, JSON.stringify(equipe));
     });
 
-    equipe = cmbEquipes.options[cmbEquipes.selectedIndex].value;
-    chargerPlayers(JSON.parse(equipe).pk, chargerPlayerSuccess, chargerPlayerError);
+    //equipe = cmbEquipes.options[cmbEquipes.selectedIndex].value;
+    //chargerPlayers(JSON.parse(equipe).pk, chargerPlayerSuccess, chargerPlayerError);
 }
 
 /**

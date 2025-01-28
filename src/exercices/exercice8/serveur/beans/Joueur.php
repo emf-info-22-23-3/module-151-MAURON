@@ -7,12 +7,14 @@ class Joueur
 
     private $fk_equipe;
     private $points;
+
     public function __construct($id, $name, $fk_equipe, $points)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->points = $points;
         $this->fk_equipe = $fk_equipe;
+        $this->points = $points;
+
     }
 
     public function getId()

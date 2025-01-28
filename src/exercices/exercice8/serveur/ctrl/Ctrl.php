@@ -1,5 +1,4 @@
 <?php
-require_once("./wrk/Wrk.php");
 
 class Ctrl {
     
@@ -13,18 +12,16 @@ class Ctrl {
     {
         $joueurs = $this->wrk->getJoueurs($idEquipe);
         
-        // Création de l'objet XML
         $xml = new SimpleXMLElement('<joueurs></joueurs>');
         
         foreach ($joueurs as $joueur) {
             $joueurElement = $xml->addChild('joueur');
             $joueurElement->addChild('id', $joueur->getId());
-            $joueurElement->addChild('nom', $joueur->getNom());
-            $joueurElement->addChild('equipe', $joueur->getEquipe());
+            $joueurElement->addChild('nom', $joueur->getName());
+            $joueurElement->addChild('equipe', $joueur->getFKEquipe());
             $joueurElement->addChild('points', $joueur->getPoints());
         }
 
-        // Retourne le XML sous forme de chaîne
         return $xml->asXML();
     }
 
@@ -40,7 +37,6 @@ class Ctrl {
             $equipeElement->addChild('nom', $equipe->getNom());
         }
 
-        // Retourne le XML sous forme de chaîne
         return $xml->asXML();
     }
 

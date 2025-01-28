@@ -12,11 +12,11 @@ class Wrk
 
     public function getJoueurs($idEquipe)
     {
-        $reponse = $this->bdd->prepare('SELECT * FROM t_joueur WHERE FK_equipe =' . $idEquipe);
+        $reponse = $this->bdd->prepare('SELECT * FROM t_joueur WHERE FK_equipe = '.$idEquipe);
         $reponse->execute();
         $joueurs = array();
         while ($joueur = $reponse->fetch()) {
-            array_push($joueurs, new Joueur($joueur['PK_joueur'], $joueur['Nom'], $joueur['FK_equipe']), $joueur['Points']);
+            array_push($joueurs, new Joueur ($joueur['PK_joueur'], $joueur['Nom'], $joueur['FK_equipe'], $joueur['Points']));
         }
         $reponse->closeCursor();
         return $joueurs;
