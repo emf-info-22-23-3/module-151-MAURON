@@ -1,4 +1,4 @@
-var BASE_URL = "http://localhost:8080/exercices/exercice6/serveur.php";
+var BASE_URL = "http://localhost:8080/exercices/exercice6/serveur/serveur.php";
 
 /**
  * Fonction permettant de charger les données d'équipe.
@@ -8,9 +8,9 @@ var BASE_URL = "http://localhost:8080/exercices/exercice6/serveur.php";
 function chargerTeam(successCallback, errorCallback) {
     $.ajax({
     type: "GET",
-    dataType: "xml",
+    dataType: "json",
     url: BASE_URL,
-    data: 'action=equipes',
+    data: 'action=equipe',
     success: successCallback,
     error: errorCallback
     });

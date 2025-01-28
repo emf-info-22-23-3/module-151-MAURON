@@ -5,15 +5,13 @@
  * @param {type} jqXHR
  */
 function chargerTeamSuccess(data, text, jqXHR) {
-    // appelé lorsque l'on reçoit les données de la part du PHP
     var tblContent = $("#tableContent");
     var txt = '';
 
-    $(data).find("equipe").each(function () {
-        //alert($(this).find("nom").text());
-        txt = "<tr><td>" + $(this).find("id").text() + "</td><td>" + $(this).find("nom").text() + "</td></tr>";
-        $(txt).appendTo(tblContent);
-    })
+    $.each(data, function(index, team) {
+        var row = '<tr><td>' + team.id + '</td><td>' + team.name + '</td></tr>';
+        $('#teams-table tbody').append(row);
+    });
 }
 
 /**
