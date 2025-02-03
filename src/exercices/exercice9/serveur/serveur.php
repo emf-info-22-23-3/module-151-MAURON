@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		if (isset($_SESSION['logged'])) {
 		if ($_SESSION['logged'] == "emf"){
 			echo "<users><user><name>Victor Legros</name><salaire>9876</salaire></user><user><name>Marinette Lachance</name><salaire>7540</salaire></user><user><name>Gustave Latuile</name><salaire>4369</salaire></user><user><name>Basile Ledisciple</name><salaire>2384</salaire></user></users>";
-		
 	}
 	}else {
 		echo '<message>DROITS INSUFFISANTS</message>';
