@@ -1,6 +1,5 @@
 <?php 
 	include_once('Connexion.php');
-	include_once('beans/Skieur.php');
 
         
 	/**
