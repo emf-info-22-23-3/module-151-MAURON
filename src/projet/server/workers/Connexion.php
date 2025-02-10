@@ -31,7 +31,7 @@ class Connexion {
      */
     private function __construct() {
         try {
-            $this->pdo = new PDO('mysql:host=localhost;dbname=DBNAME', 'root', 'root', array(
+            $this->pdo = new PDO('mysql:host=mysql;dbname=db_foot', 'root', 'root', array(
                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
                 PDO::ATTR_PERSISTENT => true));
         } catch (PDOException $e) {
