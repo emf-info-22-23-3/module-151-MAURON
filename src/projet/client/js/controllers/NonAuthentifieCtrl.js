@@ -1,20 +1,28 @@
 
 class NonAuthentifieCtrl {
 
-    constructor(){}
-
-    connect () {
-        
+    constructor() {
+        http.chargerEquipe(this.creationListe.bind(this), this.gestionErreur.bind(this));
     }
 
-    chargerPaysSuccess(data, text, jqXHR)
-{   
-	var cmbEquipe = document.getElementById("cmbEquipe");
-    $(data).find("equipes").each(function() {
-      var pays = new Pays();
-      pays.setNom($(this).find("nom").text());
-      pays.setPk($(this).find("pk_pays").text());
-	  cmbEquipe.options[cmbEquipe.options.length] = new Option(pays, JSON.stringify(pays));
-    });  
-}
+    connect() {
+
+    }
+
+    creationListe(data) {
+        let select = $("cmbEquipe");
+        select.empty(); // Vider les anciennes options
+
+        $(data).find("equipe").each(function () {
+            let id = $(this).find("pk_equipe").text();
+            let nom = $(this).find("nom").text();
+            select.append(`<option value="${id}">${nom}</option>`);
+        });
+    }
+
+    
+    gestionErreur(xhr, status, error) {
+        console.error("Erreur lors du chargement des équipes :", status, error);
+        alert("Une erreur est survenue lors du chargement des équipes. Veuillez réessayer plus tard.");
+    }
 }
