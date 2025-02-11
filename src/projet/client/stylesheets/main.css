@@ -8,19 +8,21 @@ body {
 .login {
     text-align: right;
     margin-bottom: 20px;
+    font-size: 13px;
 }
 
 input {
     padding: 5px;
     margin: 5px;
+    height: 7px;
+    width: 90px;
 }
 
-#conteneur {
+#view {
     background-color: white;
-    width: 70em;
+    width: 50em;
     height: auto;
     margin: auto;
-    /* Pour centrer */
     text-align: left;
     border: 2px solid black;
     padding: 1em 2em;

@@ -11,9 +11,16 @@ class ServiceHttp {
     constructor(){}
 
 
-  
+    chargerEquipe(successCallback, errorCallback) {
+      $.ajax({
+        type: "GET",
+        dataType: "xml",
+        url: BASE_URL + "equipeManager.php",
+        success: successCallback,
+        error: errorCallback
+      });
+    }
 
-    
   
     centraliserErreurHttp(httpErrorCallbackFn) {
       $.ajaxSetup({

@@ -5,7 +5,7 @@
  * Cette classe représente une Position.
  *
  */
-class Equipe
+class Position
 {
     private $pk_position;
     private $nom;

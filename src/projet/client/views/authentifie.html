@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<div class="login">
+    <label>Login</label>
+    <input type="text" placeholder="login" id="username">
+    <label>Mot de passe</label>
+    <input type="password" placeholder="mot de passe" id="mot de passe">
+    <button id="connecter">Connecter</button>
+</div>
+
+<div class="container">
+    <div class="sidebar">
+        <label for="equipes">Équipes</label>
+        <select id="equipes">
+            <option>Équipes</option>
+        </select>
+        <h3>Joueurs :</h3>
+        <select id="joueurs" size="15"></select>
+        <input type="button" id="ajouter" value="Ajouter">
+    </div>
+    <div class="content">
+        <h2 id="nom"></h2>
+        <div class="player-info">
+            <img id="photo" alt="Image joueur">
+            <div class="player-details">
+                <div class="info"><strong>Date naissance :</strong> <input type="date" id="dateNaissance" min="1900-01-01"></div>
+                <div class="info"><strong>Numéro :</strong> <input type="text" id="nom"></div>
+                <div class="info"><strong>Poste :</strong> <select id="position"></div>
+                <div class="info"><strong>Nombre de titres :</strong><input type="text" id="nbrTitre"></div>
+                <div class="info"><strong>Nombre de buts :</strong> <input type="text" id="nbrBut"></div>
+                <div class="info"><strong>Salaire (million) :</strong> <input type="text" id="salaire"></div>
+            </div>
+            <input type="button" id="modifier" value="Modifier">
+        </div>
+    </div>
+</div>
