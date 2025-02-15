@@ -2,7 +2,8 @@
 class NonAuthentifieCtrl {
 
     constructor() {
-        http.chargerEquipe(this.creationListeEquipe.bind(this), this.gestionErreurEquipe.bind(this));
+        $.getScript("javascripts/beans/Equipe.js",function () { console.log("chargement réussie") });
+        http.chargerEquipe(this.chargerPaysSuccess, this.gestionErreurEquipe);
         
     }
 
@@ -10,14 +11,15 @@ class NonAuthentifieCtrl {
 
     }
 
-    creationListeEquipe(data) {
-        let select = $("#cmbEquipe");
-        select.empty();
-        $(data).find("equipe").each(function () {
-            let id = $(this).find("pk_equipe").text();
-            let nom = $(this).find("nom").text();
-            select.append(`<option value="${id}">${nom}</option>`);
-        });
+    chargerPaysSuccess(data, text, jqXHR)
+    {   
+        var cmbEquipe = document.getElementById("cmbEquipe");
+        $(data).find("equipe").each(function() {
+          var pays = new Equipe();
+          pays.setNom($(this).find("nom").text());
+          pays.setPk($(this).find("pk_pays").text());
+          cmbEquipe.options[cmbEquipe.options.length] = new Option(cmbEquipe, JSON.stringify(cmbEquipe));
+        });  
     }
 
     
@@ -26,15 +28,6 @@ class NonAuthentifieCtrl {
         alert("Une erreur est survenue lors du chargement des équipes. Veuillez réessayer plus tard.");
     }
 
-    creationListeJoueur(data){
-        let select = $("#cmbJoueur");
-        select.empty();
-        $(data).find("joueur").each(function () {
-            let id = $(this).find("pk_equipe").text();
-            let nom = $(this).find("nom").text();
-            select.append(`<option value="${id}">${nom}</option>`);
-        });
-    }
 
     gestionErreurJoueur(xhr, status, error) {
         console.error("Erreur lors du chargement des équipes :", status, error);
