@@ -1,6 +1,5 @@
 class NonAuthentifieCtrl {
   constructor() {
-    var equipe = "";
     var cmbEquipe = document.getElementById("cmbEquipe");
     var cmbJoueurs = document.getElementById("cmbJoueur");
 
@@ -9,7 +8,6 @@ class NonAuthentifieCtrl {
     http.chargerEquipe(this.chargerPaysSuccess, this.gestionErreurEquipe);
 
     cmbEquipe.addEventListener("change",  () => {
-     // var equipe = this.options[this.selectedIndex].value;
      console.log(cmbEquipe.value);
       http.chargerJoueur(cmbEquipe.value, this.chargerJoueurSuccess, this.gestionErreurJoueur);
     });
@@ -49,7 +47,7 @@ class NonAuthentifieCtrl {
         joueur.setFkPosition($(this).find("fk_position").text());
         joueur.setSalaire($(this).find("salaire").text());
         joueur.setNumero($(this).find("numero").text());
-
+        
         cmbJoueurs.options[cmbJoueurs.options.length] = new Option(
           joueur,
           JSON.stringify(joueur)
@@ -74,15 +72,13 @@ class NonAuthentifieCtrl {
   afficheInfoJoueur(event) {
     var cmbJoueurs = document.getElementById("cmbJoueur");
     var joueurJson = JSON.parse(cmbJoueurs.value);
-
-    // Remplir la popup avec les informations du joueur
     document.getElementById("nom").textContent = joueurJson.nom;
-    document.getElementById("dateNaissance").textContent =
-      joueurJson.dateNaissance;
-    document.getElementById("salaire").textContent = joueurJson.salaire;
+    document.getElementById("dateNaissance").textContent = joueurJson.datenaissance;
+    document.getElementById("salaire").textContent = joueurJson.salaire + " CHF";
     document.getElementById("nbrBut").textContent = joueurJson.nbrBut;
     document.getElementById("nbrTitre").textContent = joueurJson.nbrTitre;
     document.getElementById("numero").textContent = joueurJson.numero;
     document.getElementById("position").textContent = joueurJson.fk_position;
+    //document.getElementById("photo")
   }
 }
