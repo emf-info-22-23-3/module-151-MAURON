@@ -7,10 +7,9 @@ class NonAuthentifieCtrl {
     $.getScript("js/beans/Joueur.js");
     http.chargerEquipe(this.chargerPaysSuccess, this.gestionErreurEquipe);
 
-    cmbEquipe.addEventListener("change",  () => {
-     console.log(cmbEquipe.value);
-      http.chargerJoueur(cmbEquipe.value, this.chargerJoueurSuccess, this.gestionErreurJoueur);
-    });
+    cmbEquipe.addEventListener("change",  
+      http.chargerJoueur(cmbEquipe.value, this.chargerJoueurSuccess, this.gestionErreurJoueur)
+    );
 
     cmbJoueurs.addEventListener("change", this.afficheInfoJoueur.bind(this));
   }
