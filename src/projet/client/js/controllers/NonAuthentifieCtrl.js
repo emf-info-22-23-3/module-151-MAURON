@@ -7,9 +7,13 @@ class NonAuthentifieCtrl {
     $.getScript("js/beans/Joueur.js");
     http.chargerEquipe(this.chargerPaysSuccess, this.gestionErreurEquipe);
 
-    cmbEquipe.addEventListener("change",  
-      http.chargerJoueur(cmbEquipe.value, this.chargerJoueurSuccess, this.gestionErreurJoueur)
-    );
+    cmbEquipe.addEventListener("change", () => {
+      http.chargerJoueur(
+        cmbEquipe.value,
+        this.chargerJoueurSuccess,
+        this.gestionErreurJoueur
+      );
+    });
 
     cmbJoueurs.addEventListener("change", this.afficheInfoJoueur.bind(this));
   }
@@ -46,7 +50,7 @@ class NonAuthentifieCtrl {
         joueur.setFkPosition($(this).find("fk_position").text());
         joueur.setSalaire($(this).find("salaire").text());
         joueur.setNumero($(this).find("numero").text());
-        
+
         cmbJoueurs.options[cmbJoueurs.options.length] = new Option(
           joueur,
           JSON.stringify(joueur)
@@ -72,8 +76,10 @@ class NonAuthentifieCtrl {
     var cmbJoueurs = document.getElementById("cmbJoueur");
     var joueurJson = JSON.parse(cmbJoueurs.value);
     document.getElementById("nom").textContent = joueurJson.nom;
-    document.getElementById("dateNaissance").textContent = joueurJson.datenaissance;
-    document.getElementById("salaire").textContent = joueurJson.salaire + " CHF";
+    document.getElementById("dateNaissance").textContent =
+      joueurJson.datenaissance;
+    document.getElementById("salaire").textContent =
+      joueurJson.salaire + " CHF";
     document.getElementById("nbrBut").textContent = joueurJson.nbrBut;
     document.getElementById("nbrTitre").textContent = joueurJson.nbrTitre;
     document.getElementById("numero").textContent = joueurJson.numero;
