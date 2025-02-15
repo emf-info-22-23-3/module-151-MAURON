@@ -1,36 +1,88 @@
-
 class NonAuthentifieCtrl {
+  constructor() {
+    var equipe = "";
+    var cmbEquipe = document.getElementById("cmbEquipe");
+    var cmbJoueurs = document.getElementById("cmbJoueur");
 
-    constructor() {
-        $.getScript("javascripts/beans/Equipe.js",function () { console.log("chargement réussie") });
-        http.chargerEquipe(this.chargerPaysSuccess, this.gestionErreurEquipe);
-        
-    }
+    $.getScript("js/beans/Equipe.js");
+    $.getScript("js/beans/Joueur.js");
+    http.chargerEquipe(this.chargerPaysSuccess, this.gestionErreurEquipe);
 
-    connect() {
+    cmbEquipe.addEventListener("change",  () => {
+     // var equipe = this.options[this.selectedIndex].value;
+     console.log(cmbEquipe.value);
+      http.chargerJoueur(cmbEquipe.value, this.chargerJoueurSuccess, this.gestionErreurJoueur);
+    });
 
-    }
+    cmbJoueurs.addEventListener("change", this.afficheInfoJoueur.bind(this));
+  }
 
-    chargerPaysSuccess(data, text, jqXHR)
-    {   
-        var cmbEquipe = document.getElementById("cmbEquipe");
-        $(data).find("equipe").each(function() {
-          var pays = new Equipe();
-          pays.setNom($(this).find("nom").text());
-          pays.setPk($(this).find("pk_pays").text());
-          cmbEquipe.options[cmbEquipe.options.length] = new Option(cmbEquipe, JSON.stringify(cmbEquipe));
-        });  
-    }
+  connect() {}
 
-    
-    gestionErreurEquipe(xhr, status, error) {
-        console.error("Erreur lors du chargement des équipes :", status, error);
-        alert("Une erreur est survenue lors du chargement des équipes. Veuillez réessayer plus tard.");
-    }
+  chargerPaysSuccess(data, text, jqXHR) {
+    var cmbEquipe = document.getElementById("cmbEquipe");
+    $(data)
+      .find("equipe")
+      .each(function () {
+        var equipe = new Equipe();
+        equipe.setNom($(this).find("nom").text());
+        equipe.setPk($(this).find("pk_equipe").text());
+        cmbEquipe.options[cmbEquipe.options.length] = new Option(
+          equipe,
+          JSON.stringify(equipe.pk_equipe)
+        );
+      });
+  }
 
+  chargerJoueurSuccess(data, text, jqXHR) {
+    var cmbJoueurs = document.getElementById("cmbJoueur");
+    cmbJoueurs.options.length = 0;
+    $(data)
+      .find("joueur")
+      .each(function () {
+        var joueur = new Joueur();
+        joueur.setNom($(this).find("nom").text());
+        joueur.setDatenaissance($(this).find("dateNaissance").text());
+        joueur.setNbrBut($(this).find("nbrBut").text());
+        joueur.setNbrTitre($(this).find("nbrTitre").text());
+        joueur.setFkPhoto($(this).find("fk_photo").text());
+        joueur.setFkPosition($(this).find("fk_position").text());
+        joueur.setSalaire($(this).find("salaire").text());
+        joueur.setNumero($(this).find("numero").text());
 
-    gestionErreurJoueur(xhr, status, error) {
-        console.error("Erreur lors du chargement des équipes :", status, error);
-        alert("Une erreur est survenue lors du chargement des équipes. Veuillez réessayer plus tard.");
-    }
+        cmbJoueurs.options[cmbJoueurs.options.length] = new Option(
+          joueur,
+          JSON.stringify(joueur)
+        );
+      });
+  }
+
+  gestionErreurEquipe(xhr, status, error) {
+    console.error("Erreur lors du chargement des équipes :", status, error);
+    alert(
+      "Une erreur est survenue lors du chargement des équipes. Veuillez réessayer plus tard."
+    );
+  }
+
+  gestionErreurJoueur(xhr, status, error) {
+    console.error("Erreur lors du chargement des équipes :", status, error);
+    alert(
+      "Une erreur est survenue lors du chargement des équipes. Veuillez réessayer plus tard."
+    );
+  }
+
+  afficheInfoJoueur(event) {
+    var cmbJoueurs = document.getElementById("cmbJoueur");
+    var joueurJson = JSON.parse(cmbJoueurs.value);
+
+    // Remplir la popup avec les informations du joueur
+    document.getElementById("nom").textContent = joueurJson.nom;
+    document.getElementById("dateNaissance").textContent =
+      joueurJson.dateNaissance;
+    document.getElementById("salaire").textContent = joueurJson.salaire;
+    document.getElementById("nbrBut").textContent = joueurJson.nbrBut;
+    document.getElementById("nbrTitre").textContent = joueurJson.nbrTitre;
+    document.getElementById("numero").textContent = joueurJson.numero;
+    document.getElementById("position").textContent = joueurJson.fk_position;
+  }
 }

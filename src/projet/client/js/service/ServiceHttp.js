@@ -23,23 +23,16 @@ class ServiceHttp {
       });
     }
 
-    chargerEtRemplirSelect() {
-      http.chargerEquipe(
-          (data) => { // Success callback
-              let select = $("cmbEquipe");
-              select.empty(); // Vider les anciennes options
-              
-              $(data).find("equipe").each(function() {
-                  let id = $(this).find("pk_equipe").text();
-                  let nom = $(this).find("nom").text();
-                  select.append(`<option value="${id}">${nom}</option>`);
-              });
-          },
-          (xhr, status, error) => { // Error callback
-              console.error("Erreur lors du chargement des équipes :", status, error);
-          }
-      );
-  }
+    chargerJoueur(fk_equipe,successCallback, errorCallback){
+      $.ajax({
+        type: "GET",
+        dataType: "xml",
+        url: BASE_URL + "joueurManager.php",
+        data:'FK_equipe=' + fk_equipe,
+        success: successCallback,
+        error: errorCallback
+      });
+    }
   
     centraliserErreurHttp(httpErrorCallbackFn) {
       $.ajaxSetup({
