@@ -58,6 +58,30 @@ class ServiceHttp {
     });
   }
 
+  ajouterJoueur (nom, dateNaissance, numero, nbrTitre, salaire, nbrBut, fk_position, fk_equipe, fk_photo,successCallback, errorCallback) {
+    $.ajax({
+      type: "POST",
+      dataType: "xml",
+      url: BASE_URL,
+      data: 'action=ajouter&nom=' + nom + '&dateNaissance=' + dateNaissance + '&numero=' + numero + '&nbrTitre=' + nbrTitre + 
+      '&salaire=' + salaire + '&nbrBut=' + nbrBut + '&fk_position=' + fk_position + '&fk_equipe=' + fk_equipe + '&fk_photo=' + fk_photo,
+      success: successCallback,
+      error: errorCallback
+    });
+  }
+
+  modifierJoueur (nom, dateNaissance, numero, nbrTitre, salaire, nbrBut, fk_position,successCallback, errorCallback){
+    $.ajax({
+      type: "PUT",
+      dataType: "xml",
+      url: BASE_URL,
+      data: 'action=ajouter&nom=' + nom + '&dateNaissance=' + dateNaissance + '&numero=' + numero + '&nbrTitre=' + nbrTitre + 
+      '&salaire=' + salaire + '&nbrBut=' + nbrBut + '&fk_position=' + fk_position,
+      success: successCallback,
+      error: errorCallback
+    });
+  }
+
   centraliserErreurHttp(httpErrorCallbackFn) {
     $.ajaxSetup({
       error: function (xhr, exception) {

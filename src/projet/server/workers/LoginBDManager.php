@@ -10,11 +10,11 @@ include_once('Connexion.php');
 class LoginBDManager
 {
 
-    function checkLogin($username, $password)
+    function checkLogin($username)
     {
         $result = null;
-        $requete = "SELECT * from T_administrateur where Login = :username AND MotDePasse = :password";
-        $params = array('username' => $username,'password'=> $password);
+        $requete = "SELECT MotDePasse from T_administrateur where Login = :username";
+        $params = array('username' => $username);
         $data = Connexion::getInstance()->selectSingleQuery($requete, $params);
         if (count($data) > 0) {
             $result = $data;

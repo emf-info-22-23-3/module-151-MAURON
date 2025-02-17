@@ -9,20 +9,20 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
         if (isset($_POST['login']) && isset($_POST['password'])) {
             $username = $_POST['login'];
             $password = $_POST['password'];
-            //  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
             $loginBD = new LoginBDManager();
 
-            $result = $loginBD->checkLogin($username, $password);
+            $result = $loginBD->checkLogin($username);
             if ($result !== null) {
-                $sessionManager = new SessionManager();
-                $sessionManager->openSession($username);
-
-                echo '<result>true</result>';
-                //http_response_code(200);
+                if (password_verify($password, $result['MotDePasse'])) {
+                    $sessionManager = new SessionManager();
+                    $sessionManager->openSession($username);
+                    echo '<result>true</result>';
+                    //http_response_code(200);
+                }
             }
         } else {
-            echo '<result>true</result>';
+            echo '<result>false</result>';
             //http_response_code(401);
         }
     }

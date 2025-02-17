@@ -93,8 +93,7 @@ class NonAuthentifieCtrl {
         var cmbJoueurs = document.getElementById("cmbJoueur");
         var joueurJson = JSON.parse(cmbJoueurs.value);
         document.getElementById("nom").textContent = joueurJson.nom;
-        document.getElementById("dateNaissance").textContent =
-            joueurJson.datenaissance;
+        document.getElementById("dateNaissance").textContent =joueurJson.datenaissance;
         document.getElementById("salaire").textContent = joueurJson.salaire + " CHF";
         document.getElementById("nbrBut").textContent = joueurJson.nbrBut;
         document.getElementById("nbrTitre").textContent = joueurJson.nbrTitre;
