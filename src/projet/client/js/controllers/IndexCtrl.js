@@ -1,11 +1,11 @@
 /*
   But :    Chargement des différentes vues 
   Auteur : Simon Mauron
-  Date :   28.05.2024 / V1.0
+  Date :   17.02.2025 / V1.0
 */
 
 $().ready(function () {
-    // service et indexCtrl sont des variables globales qui doivent être accessible depuis partout => pas de mot clé devant ou window.xxx
+    // http et indexCtrl sont des variables globales qui doivent être accessible depuis partout => pas de mot clé devant ou window.xxx
     http = new ServiceHttp();
     indexCtrl = new IndexCtrl(); // ctrl principal
     http.centraliserErreurHttp(indexCtrl.afficherErreurHttp);
@@ -29,21 +29,15 @@ $().ready(function () {
       });
     }
   
-    loadDepartement() {
-      this.vue.chargerVue("departement", function () {
-        new DepartementCtrl();
+    loadAuthentifie() {
+      this.vue.chargerVue("authentifie", function () {
+        new AuthentifieCtrl();
       });
     }
   
-    loadCarte(fkDepartement) {
-      this.vue.chargerVue("carte", function () {
-        new CarteCtrl(fkDepartement);
-      });
-    }
-  
-    loadDetail(fkDepartement) {
-      this.vue.chargerVue("detail", function () {
-        new DetailCtrl(fkDepartement);
+    loadAjouter() {
+      this.vue.chargerVue("ajouter", function () {
+        new AjouterCtrl();
       });
     }
   }

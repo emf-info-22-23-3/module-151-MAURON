@@ -15,16 +15,22 @@ class JoueurBDManager
      *
      * @return liste des equipes
      */
-    public function readJoueurs($fkPays)
+    public function readJoueurs($fkEquipe)
     {
         $count = 0;
         $liste = array();
         $connection = Connexion::getInstance();
-        $query = $connection->selectQuery("select * from T_joueur where FK_equipe=" . $fkPays, array());
+        $query = $connection->selectQuery(
+            "SELECT T_joueur.*, T_position.Nom AS position_nom, T_photo.Photo AS photo_url
+             FROM T_joueur
+             LEFT JOIN T_position ON T_joueur.FK_position = T_position.PK_position
+             LEFT JOIN T_photo ON T_joueur.FK_Photo = T_photo.PK_photo
+             WHERE T_joueur.FK_equipe = " . $fkEquipe, 
+            array());
         foreach ($query as $data) {
             $joueur = new Joueur($data['PK_joueur'], $data['Nom'], $data['DateNaissance'],
              $data['Numero'], $data['Salaire'], $data['NbrBut'], $data['NbrTitre'],
-             $data['FK_position'],$data['FK_equipe'],$data['FK_Photo']);
+             $data['position_nom'],$data['FK_equipe'],$data['photo_url']);
             $liste[$count++] = $joueur;
         }
         return $liste;
