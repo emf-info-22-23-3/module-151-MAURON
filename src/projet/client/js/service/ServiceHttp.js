@@ -34,6 +34,16 @@ class ServiceHttp {
     });
   }
 
+  chargerPosition(successCallback, errorCallback) {
+    $.ajax({
+      type: "GET",
+      dataType: "xml",
+      url: BASE_URL + "positionManager.php",
+      success: successCallback,
+      error: errorCallback
+    });
+  }
+
 
   connect(login, passwd, successCallback, errorCallback) {
     $.ajax({

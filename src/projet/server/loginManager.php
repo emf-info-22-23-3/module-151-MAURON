@@ -17,7 +17,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
                 if (password_verify($password, $result['MotDePasse'])) {
                     $sessionManager = new SessionManager();
                     $sessionManager->openSession($username);
-                    echo '<result>true</result>';
+                    echo '<result>'.$sessionManager->currentUser().'</result>';
                     //http_response_code(200);
                 }
             }
