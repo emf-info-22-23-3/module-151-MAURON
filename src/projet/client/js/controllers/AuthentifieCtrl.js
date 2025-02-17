@@ -4,9 +4,11 @@ class AuthentifieCtrl {
         var cmbJoueurs = document.getElementById("cmbJoueur");
         var butDeco = document.getElementById("deconnecter");
         var ajouter = document.getElementById("ajouter");
+        var modifier = document.getElementById("modifier");
 
         $.getScript("js/beans/Equipe.js");
         $.getScript("js/beans/Joueur.js");
+        $.getScript("js/beans/Position.js");
 
         http.chargerEquipe(this.chargerEquipeSuccess, this.gestionErreurEquipe);
         http.chargerPosition(this.chargerPositionSuccess, this.gestionErreurPosition);
@@ -16,6 +18,10 @@ class AuthentifieCtrl {
         cmbJoueurs.addEventListener("change", this.afficheInfoJoueur.bind(this));
 
         ajouter.addEventListener("click", this.loadAjouter.bind(this));
+
+        modifier.addEventListener("click", () => {http.modifierJoueur(document.getElementById('nom').value, document.getElementById('dateNaissance').value, 
+            document.getElementById('numero').text, document.getElementById('nbrTitre').value, document.getElementById('salaire').value, document.getElementById('nbrBut').value,
+            document.getElementById('cmbPosition').value, 1, this.afficheModificationSuccess, this.afficheModificationErreur)});
 
         butDeco.addEventListener("click", () => {
             http.deconnecte(this.deconnectSuccess, this.gestionErreurLogin);
@@ -78,6 +84,17 @@ class AuthentifieCtrl {
                 position
             );
         });
+    }
+
+    afficheModificationSuccess(){
+        alert("La modification du joueur s'est fait correctement")
+    }
+
+    afficheModificationErreur(status, error) {
+        console.error("Erreur lors de la modification du joueur:", status, error);
+        alert(
+            "Une erreur est survenue lors de la modification du joueur. Veuillez réessayer plus tard."
+        );
     }
 
     loadAjouter(){

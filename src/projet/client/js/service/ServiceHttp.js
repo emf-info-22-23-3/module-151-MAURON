@@ -80,13 +80,13 @@ class ServiceHttp {
     });
   }
 
-  modifierJoueur (nom, dateNaissance, numero, nbrTitre, salaire, nbrBut, fk_position,successCallback, errorCallback){
+  modifierJoueur (nom, dateNaissance, numero, nbrTitre, salaire, nbrBut, fk_position, pk_joueur,successCallback, errorCallback){
     $.ajax({
       type: "PUT",
       dataType: "xml",
-      url: BASE_URL,
+      url: BASE_URL + "joueurManager.php",
       data: 'action=ajouter&nom=' + nom + '&dateNaissance=' + dateNaissance + '&numero=' + numero + '&nbrTitre=' + nbrTitre + 
-      '&salaire=' + salaire + '&nbrBut=' + nbrBut + '&fk_position=' + fk_position,
+      '&salaire=' + salaire + '&nbrBut=' + nbrBut + '&fk_position=' + fk_position + "&pk_joueur" + pk_joueur,
       success: successCallback,
       error: errorCallback
     });
