@@ -1,3 +1,12 @@
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (sessionStorage.getItem('isConnected') === 'true') {
+        console.log('charger');
+        indexCtrl.loadAuthentifie();
+    }
+});
+
+
 class AuthentifieCtrl {
     constructor() {
         var cmbEquipe = document.getElementById("cmbEquipe");
@@ -11,27 +20,23 @@ class AuthentifieCtrl {
         $.getScript("js/beans/Position.js");
 
         http.chargerEquipe(this.chargerEquipeSuccess, this.gestionErreurEquipe);
-        http.chargerPosition(this.chargerPositionSuccess, this.gestionErreurPosition);
+        //http.chargerPosition(this.chargerPositionSuccess, this.gestionErreurPosition);
 
-        cmbEquipe.addEventListener("change", () => {http.chargerJoueur(cmbEquipe.value,this.chargerJoueurSuccess,this.gestionErreurJoueur);});
+        cmbEquipe.addEventListener("change", () => { http.chargerJoueur(cmbEquipe.value, this.chargerJoueurSuccess, this.gestionErreurJoueur); });
 
         cmbJoueurs.addEventListener("change", this.afficheInfoJoueur.bind(this));
 
         ajouter.addEventListener("click", this.loadAjouter.bind(this));
 
-        modifier.addEventListener("click", () => {http.modifierJoueur(document.getElementById('nom').value, document.getElementById('dateNaissance').value, 
-            document.getElementById('numero').value, document.getElementById('nbrTitre').value, document.getElementById('salaire').value, document.getElementById('nbrBut').value,
-            document.getElementById('cmbPosition').value, 1, this.afficheModificationSuccess, this.afficheModificationErreur)});
+        modifier.addEventListener("click", () => {
+            http.modifierJoueur(document.getElementById('nom').value, document.getElementById('dateNaissance').value,
+                document.getElementById('numero').value, document.getElementById('nbrTitre').value, document.getElementById('salaire').value, document.getElementById('nbrBut').value,
+                document.getElementById('cmbPosition').value, 1, this.afficheModificationSuccess, this.afficheModificationErreur)
+        });
 
         butDeco.addEventListener("click", () => {
             http.disconnect(this.deconnectSuccess, this.gestionErreurLogin);
         });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            if (sessionStorage.getItem('isConnected == true')){
-              indexCtrl.loadAuthentifie();
-            }
-          });
     }
 
     connectSuccess(data, text, jqXHR) {
@@ -48,14 +53,14 @@ class AuthentifieCtrl {
     chargerEquipeSuccess(data, text, jqXHR) {
         var cmbEquipe = document.getElementById("cmbEquipe");
         $(data).find("equipe").each(function () {
-                var equipe = new Equipe();
-                equipe.setNom($(this).find("nom").text());
-                equipe.setPk($(this).find("pk_equipe").text());
-                cmbEquipe.options[cmbEquipe.options.length] = new Option(
-                    equipe,
-                    JSON.stringify(equipe.pk_equipe)
-                );
-            });
+            var equipe = new Equipe();
+            equipe.setNom($(this).find("nom").text());
+            equipe.setPk($(this).find("pk_equipe").text());
+            cmbEquipe.options[cmbEquipe.options.length] = new Option(
+                equipe,
+                JSON.stringify(equipe.pk_equipe)
+            );
+        });
     }
 
     chargerJoueurSuccess(data, text, jqXHR) {
@@ -92,7 +97,7 @@ class AuthentifieCtrl {
         });
     }
 
-    deconnectSuccess (data, text, jqXHR) {
+    deconnectSuccess(data, text, jqXHR) {
         if ($(data).find("result").text() != null) {
             sessionStorage.removeItem('isConnected');
             alert("Déconnexion réussie :)");
@@ -103,7 +108,7 @@ class AuthentifieCtrl {
         }
     }
 
-    afficheModificationSuccess(){
+    afficheModificationSuccess() {
         alert("La modification du joueur s'est fait correctement")
     }
 
@@ -114,7 +119,7 @@ class AuthentifieCtrl {
         );
     }
 
-    loadAjouter(){
+    loadAjouter() {
         indexCtrl.loadAjouter();
     }
 
