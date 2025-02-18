@@ -20,12 +20,18 @@ class AuthentifieCtrl {
         ajouter.addEventListener("click", this.loadAjouter.bind(this));
 
         modifier.addEventListener("click", () => {http.modifierJoueur(document.getElementById('nom').value, document.getElementById('dateNaissance').value, 
-            document.getElementById('numero').text, document.getElementById('nbrTitre').value, document.getElementById('salaire').value, document.getElementById('nbrBut').value,
+            document.getElementById('numero').value, document.getElementById('nbrTitre').value, document.getElementById('salaire').value, document.getElementById('nbrBut').value,
             document.getElementById('cmbPosition').value, 1, this.afficheModificationSuccess, this.afficheModificationErreur)});
 
         butDeco.addEventListener("click", () => {
-            http.deconnecte(this.deconnectSuccess, this.gestionErreurLogin);
+            http.disconnect(this.deconnectSuccess, this.gestionErreurLogin);
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            if (sessionStorage.getItem('isConnected == true')){
+              indexCtrl.loadAuthentifie();
+            }
+          });
     }
 
     connectSuccess(data, text, jqXHR) {
@@ -86,6 +92,17 @@ class AuthentifieCtrl {
         });
     }
 
+    deconnectSuccess (data, text, jqXHR) {
+        if ($(data).find("result").text() != null) {
+            sessionStorage.removeItem('isConnected');
+            alert("Déconnexion réussie :)");
+            indexCtrl.loadNonAuthentifie();
+        }
+        else {
+            alert("Erreur lors du login");
+        }
+    }
+
     afficheModificationSuccess(){
         alert("La modification du joueur s'est fait correctement")
     }
@@ -140,3 +157,5 @@ class AuthentifieCtrl {
         document.getElementById("photo").src = joueurJson.fk_photo;
     }
 }
+
+

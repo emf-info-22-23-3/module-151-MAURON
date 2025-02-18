@@ -61,7 +61,7 @@ class ServiceHttp {
     $.ajax({
       type: "POST",
       dataType: "xml",
-      url: BASE_URL,
+      url: BASE_URL + "loginManager.php",
       data: 'action=disconnect',
       success: successCallback,
       error: errorCallback
@@ -116,3 +116,5 @@ class ServiceHttp {
     });
   }
 }
+
+

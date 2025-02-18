@@ -26,6 +26,7 @@ class NonAuthentifieCtrl {
     connectSuccess(data, text, jqXHR) {
         if ($(data).find("result").text() != null) {
             alert("Login ok");
+            sessionStorage.setItem("isConnected", "true");
             indexCtrl.loadAuthentifie();
         }
         else {
@@ -84,7 +85,7 @@ class NonAuthentifieCtrl {
         );
     }
 
-    gestionErreurLogin(xhr, status, error){
+    gestionErreurLogin(xhr, status, error) {
         console.error("Erreur lors de votre login : ", status, error);
         alert("une erreur est survenue lors de votre login");
     }
@@ -93,7 +94,7 @@ class NonAuthentifieCtrl {
         var cmbJoueurs = document.getElementById("cmbJoueur");
         var joueurJson = JSON.parse(cmbJoueurs.value);
         document.getElementById("nom").textContent = joueurJson.nom;
-        document.getElementById("dateNaissance").textContent =joueurJson.datenaissance;
+        document.getElementById("dateNaissance").textContent = joueurJson.datenaissance;
         document.getElementById("salaire").textContent = joueurJson.salaire + " CHF";
         document.getElementById("nbrBut").textContent = joueurJson.nbrBut;
         document.getElementById("nbrTitre").textContent = joueurJson.nbrTitre;
