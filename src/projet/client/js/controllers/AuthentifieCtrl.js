@@ -20,7 +20,7 @@ class AuthentifieCtrl {
         $.getScript("js/beans/Position.js");
 
         http.chargerEquipe(this.chargerEquipeSuccess, this.gestionErreurEquipe);
-        //http.chargerPosition(this.chargerPositionSuccess, this.gestionErreurPosition);
+        http.chargerPosition(this.chargerPositionSuccess, this.gestionErreurPosition);
 
         cmbEquipe.addEventListener("change", () => { http.chargerJoueur(cmbEquipe.value, this.chargerJoueurSuccess, this.gestionErreurJoueur); });
 

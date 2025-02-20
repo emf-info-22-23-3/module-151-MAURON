@@ -6,15 +6,12 @@ class NonAuthentifieCtrl {
 
         $.getScript("js/beans/Equipe.js");
         $.getScript("js/beans/Joueur.js");
-        http.chargerEquipe(this.chargerPaysSuccess, this.gestionErreurEquipe);
-
+        http.chargerEquipe(this.chargerEquipeSuccess, this.gestionErreurEquipe);
+        
         cmbEquipe.addEventListener("change", () => {
-            http.chargerJoueur(
-                cmbEquipe.value,
-                this.chargerJoueurSuccess,
-                this.gestionErreurJoueur
-            );
+            http.chargerJoueur(cmbEquipe.value,this.chargerJoueurSuccess,this.gestionErreurJoueur);
         });
+
 
         cmbJoueurs.addEventListener("change", this.afficheInfoJoueur.bind(this));
 
@@ -35,11 +32,9 @@ class NonAuthentifieCtrl {
 
     }
 
-    chargerPaysSuccess(data, text, jqXHR) {
+    chargerEquipeSuccess(data, text, jqXHR) {
         var cmbEquipe = document.getElementById("cmbEquipe");
-        $(data)
-            .find("equipe")
-            .each(function () {
+        $(data).find("equipe").each(function () {
                 var equipe = new Equipe();
                 equipe.setNom($(this).find("nom").text());
                 equipe.setPk($(this).find("pk_equipe").text());
@@ -47,7 +42,13 @@ class NonAuthentifieCtrl {
                     equipe,
                     JSON.stringify(equipe.pk_equipe)
                 );
+                console.log("chargerEquipe");
             });
+        if (cmbEquipe.options.length > 0) {
+                cmbEquipe.selectedIndex = 0; // Sélectionne la première option
+                console.log(cmbEquipe.value);
+                http.chargerJoueur(cmbEquipe.value,this.chargerJoueurSuccess,this.gestionErreurJoueur);
+            }
     }
 
     chargerJoueurSuccess(data, text, jqXHR) {
