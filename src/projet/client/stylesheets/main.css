@@ -80,7 +80,13 @@ h2 {
     text-align: center;
 }
 
-.buttonADD{
-    text-align: center; 
+.buttonADD {
+    text-align: center;
 }
 
+.NOM {
+    font-size: 25px;
+    height: 20px;
+    width: 250px;
+    font-weight: bold;
+}

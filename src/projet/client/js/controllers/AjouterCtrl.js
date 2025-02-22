@@ -2,6 +2,7 @@
 class AjouterCtrl {
   constructor() {
     var valider = document.getElementById("valider");
+    var retour = document.getElementById("retour");
 
     $.getScript("js/beans/Equipe.js");
     $.getScript("js/beans/Joueur.js");
@@ -16,6 +17,11 @@ class AjouterCtrl {
             document.getElementById('numero').value, document.getElementById('nbrTitre').value, document.getElementById('salaire').value, document.getElementById('nbrBut').value,
             document.getElementById('cmbPosition').value, document.getElementById('cmbEquipe').value,document.getElementById('cmbPhoto').value, this.afficheAjoutSuccess, this.afficheAjoutErreur)
     });
+
+    retour.addEventListener("click", () => {
+        indexCtrl.loadAuthentifie();
+    })
+
   }
 
   chargerEquipeSuccess(data, text, jqXHR) {
@@ -33,7 +39,6 @@ class AjouterCtrl {
   }
 
   chargerPhotoSuccess(data, text, jqXHR) {
-    document.getElementById("cmbPosition").innerHTML = "";
     var cmbPhoto = document.getElementById("cmbPhoto");
     $(data).find("photoJoueur").each(function () {
         var photo = new Photo();
