@@ -31,8 +31,11 @@ class AuthentifieCtrl {
         modifier.addEventListener("click", () => {
             http.modifierJoueur(document.getElementById('nom').value, document.getElementById('dateNaissance').value,
                 document.getElementById('numero').value, document.getElementById('nbrTitre').value, document.getElementById('salaire').value, document.getElementById('nbrBut').value,
-                document.getElementById('cmbPosition').value, 1, this.afficheModificationSuccess, this.afficheModificationErreur)
+                document.getElementById('cmbPosition').value, JSON.parse(cmbJoueurs.value).pk_joueur, this.afficheModificationSuccess, this.afficheModificationErreur)
+                
         });
+
+        
 
         butDeco.addEventListener("click", () => {
             http.disconnect(this.deconnectSuccess, this.gestionErreurLogin);
@@ -56,10 +59,9 @@ class AuthentifieCtrl {
             var equipe = new Equipe();
             equipe.setNom($(this).find("nom").text());
             equipe.setPk($(this).find("pk_equipe").text());
-            cmbEquipe.options[cmbEquipe.options.length] = new Option(
-                equipe,
-                JSON.stringify(equipe.pk_equipe)
-            );
+            var option = new Option(equipe, equipe.getPk());
+            cmbEquipe.options[cmbEquipe.options.length] = option;
+          
         });
     }
 
@@ -68,6 +70,7 @@ class AuthentifieCtrl {
         cmbJoueurs.options.length = 0;
         $(data).find("joueur").each(function () {
             var joueur = new Joueur();
+            joueur.setPK($(this).find("pk_joueur").text());
             joueur.setNom($(this).find("nom").text());
             joueur.setDatenaissance($(this).find("dateNaissance").text());
             joueur.setNbrBut($(this).find("nbrBut").text());
@@ -76,7 +79,6 @@ class AuthentifieCtrl {
             joueur.setFkPosition($(this).find("fk_position").text());
             joueur.setSalaire($(this).find("salaire").text());
             joueur.setNumero($(this).find("numero").text());
-
             cmbJoueurs.options[cmbJoueurs.options.length] = new Option(
                 joueur,
                 JSON.stringify(joueur)
@@ -90,10 +92,8 @@ class AuthentifieCtrl {
             var position = new Position();
             position.setNom($(this).find("nom").text());
             position.setPk($(this).find("pk_position").text());
-            cmbPosition.options[cmbPosition.options.length] = new Option(
-                position,
-                position
-            );
+            var option = new Option(position, position.getPk());
+            cmbPosition.options[cmbPosition.options.length] = option;
         });
     }
 

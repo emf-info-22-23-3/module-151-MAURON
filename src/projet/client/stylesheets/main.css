@@ -75,3 +75,12 @@ input {
 .info:last-child {
     border-bottom: none;
 }
+
+h2 {
+    text-align: center;
+}
+
+.buttonADD{
+    text-align: center; 
+}
+

@@ -14,16 +14,16 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			and isset($_POST['salaire']) and isset($_POST['nbrBut']) and isset($_POST['fk_position']) and isset($_POST['fk_equipe'])
 			and isset($_POST['fk_photo'])
 		) {
-			echo $bdReader->Add(
-				$_POST['nom'],
-				$_POST['dateNaissance'],
-				$_POST['numero'],
-				$_POST['nbrTitre'],
-				$_POST['salaire'],
-				$_POST['nbrBut'],
-				$_POST['fk_position'],
-				$_POST['fk_equipe'],
-				$_POST['fk_photo']
+			echo $bdReader->add(
+				htmlspecialchars( $_POST['nom'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['dateNaissance'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['numero'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['nbrTitre'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['salaire'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['nbrBut'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['fk_position'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['fk_equipe'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['fk_photo'],ENT_QUOTES, 'utf-8'),
 			);
 		}
 
@@ -39,15 +39,15 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 		) {
 
 			$bdReader = new JoueurBDManager();
-			echo $bdReader->Update(
-				$vars['pk_joueur'],
-				$vars['nom'],
-				$vars['dateNaissance'],
-				$vars['numero'],
-				$vars['nbrTitre'],
-				$vars['salaire'],
-				$vars['nbrBut'],
-				$vars['fk_position']
+			echo $bdReader->update(
+				htmlspecialchars( $_POST['pk_joueur'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['nom'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['dateNaissance'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['numero'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['nbrTitre'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['salaire'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['nbrBut'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $_POST['fk_position'],ENT_QUOTES, 'utf-8')
 			);
 		}
 	}

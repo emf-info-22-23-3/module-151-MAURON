@@ -36,7 +36,7 @@ class JoueurBDManager
         return $liste;
     }
 
-    public function Add($nom, $dateNaissance, $numero, $nbrTitre, $salaire, $nbrBut, $fk_position, $fk_equipe, $fk_photo)
+    public function add($nom, $dateNaissance, $numero, $nbrTitre, $salaire, $nbrBut, $fk_position, $fk_equipe, $fk_photo)
     {
         $query = "INSERT INTO T_Joueur (Nom, DateNaissance, Numero, NbrTitre, Salaire, NbrBut, FK_position, FK_equipe, FK_Photo) 
         values(:nom, :dateNaissance, :numero, :nbrTitre, :salaire, :nbrBut, :fk_position, :fk_equipe, :fk_photo)";
@@ -47,7 +47,7 @@ class JoueurBDManager
     }
 
 
-    public function Update($pk_joueur, $nom, $dateNaissance, $numero, $nbrTitre, $salaire, $nbrBut, $fk_position)
+    public function update($pk_joueur, $nom, $dateNaissance, $numero, $nbrTitre, $salaire, $nbrBut, $fk_position)
     {
         $query = "UPDATE T_joueur set Nom = :nom, DateNaissance = :dateNaissance, Numero = :numero, NbrTitre = :nbrTitre, Salaire = :salaire,
         NbrBut = :nbrBut, FK_position = :fk_position where PK_joueur = :pk_joueur";

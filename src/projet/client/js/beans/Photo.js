@@ -12,17 +12,16 @@ class Photo {
      * Setter pour la clé primaire de la photo
      * @param {number} pk_equipe - Identifiant unique de la photo
      */
-    setPk(pk_position) {
-      this.pk_position = pk_position;
+    setPk(pk_photo) {
+      this.pk_photo = pk_photo;
     }
 
+    getPk(){
+      return this.pk_photo;
+    }
 
     setPhoto(photo){
         this.photo = photo;
-    }
-
-    getPhoto(){
-        return this.photo;
     }
   
     /**

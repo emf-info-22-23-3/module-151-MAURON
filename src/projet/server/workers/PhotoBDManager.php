@@ -22,7 +22,7 @@ class PhotoBDManager
         $connection = Connexion::getInstance();
         $query = $connection->selectQuery("select * from T_photo", array());
         foreach ($query as $data) {
-            $photo = new Photo($data['PK_Photo'], $data['Nom'], $data['Photo']);
+            $photo = new Photo($data['PK_photo'], $data['Nom'], $data['Photo']);
             $liste[$count++] = $photo;
         }
         return $liste;

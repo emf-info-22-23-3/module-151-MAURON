@@ -44,6 +44,16 @@ class ServiceHttp {
     });
   }
 
+  chargerphoto(successCallback, errorCallback){
+    $.ajax({
+      type: "GET",
+      dataType: "xml",
+      url: BASE_URL + "photoManager.php",
+      success: successCallback,
+      error: errorCallback
+    });
+  }
+
 
   connect(login, passwd, successCallback, errorCallback) {
     $.ajax({
@@ -72,7 +82,7 @@ class ServiceHttp {
     $.ajax({
       type: "POST",
       dataType: "xml",
-      url: BASE_URL,
+      url: BASE_URL + "joueurManager.php",
       data: 'action=ajouter&nom=' + nom + '&dateNaissance=' + dateNaissance + '&numero=' + numero + '&nbrTitre=' + nbrTitre + 
       '&salaire=' + salaire + '&nbrBut=' + nbrBut + '&fk_position=' + fk_position + '&fk_equipe=' + fk_equipe + '&fk_photo=' + fk_photo,
       success: successCallback,

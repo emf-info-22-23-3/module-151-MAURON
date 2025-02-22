@@ -1,5 +1,4 @@
 class Equipe {
-
   /**
    * Setter pour le nom de l'équipe
    * @param {string} nom - Nom de l'équipe
@@ -14,6 +13,14 @@ class Equipe {
    */
   setPk(pk_equipe) {
     this.pk_equipe = pk_equipe;
+  }
+
+  getNom() {
+    return this.nom;
+  }
+
+  getPk(){
+    return this.pk_equipe;
   }
 
   /**

@@ -15,6 +15,10 @@ class Position {
     setPk(pk_position) {
       this.pk_position = pk_position;
     }
+
+    getPk(){
+      return this.pkk_position;
+    }
   
     /**
      * Retourne le nom de la Position sous forme de texte
