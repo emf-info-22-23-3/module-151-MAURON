@@ -1,10 +1,10 @@
 
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     if (sessionStorage.getItem('isConnected') === 'true') {
         console.log('charger');
         indexCtrl.loadAuthentifie();
     }
-});
+});*/
 
 
 class AuthentifieCtrl {
@@ -158,7 +158,7 @@ class AuthentifieCtrl {
         document.getElementById("nbrBut").value = joueurJson.nbrBut;
         document.getElementById("nbrTitre").value = joueurJson.nbrTitre;
         document.getElementById("numero").value = joueurJson.numero;
-        document.getElementById("cmbPosition").value = joueurJson.fk_position;
+        document.getElementById("cmbPosition").value = JSON.parse(cmbJoueurs.value).fk_position;
         document.getElementById("photo").src = joueurJson.fk_photo;
     }
 }

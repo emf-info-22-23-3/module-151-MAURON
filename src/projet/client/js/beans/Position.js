@@ -17,7 +17,7 @@ class Position {
     }
 
     getPk(){
-      return this.pkk_position;
+      return this.pk_position;
     }
   
     /**

@@ -14,7 +14,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			and isset($_POST['salaire']) and isset($_POST['nbrBut']) and isset($_POST['fk_position']) and isset($_POST['fk_equipe'])
 			and isset($_POST['fk_photo'])
 		) {
-			echo $bdReader->add(
+			echo '<result>'.$bdReader->add(
 				htmlspecialchars( $_POST['nom'],ENT_QUOTES, 'utf-8'),
 				htmlspecialchars( $_POST['dateNaissance'],ENT_QUOTES, 'utf-8'),
 				htmlspecialchars( $_POST['numero'],ENT_QUOTES, 'utf-8'),
@@ -24,7 +24,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 				htmlspecialchars( $_POST['fk_position'],ENT_QUOTES, 'utf-8'),
 				htmlspecialchars( $_POST['fk_equipe'],ENT_QUOTES, 'utf-8'),
 				htmlspecialchars( $_POST['fk_photo'],ENT_QUOTES, 'utf-8'),
-			);
+			).'</result>';
 		}
 
 	}

@@ -25,12 +25,22 @@ class JoueurBDManager
              FROM T_joueur
              LEFT JOIN T_position ON T_joueur.FK_position = T_position.PK_position
              LEFT JOIN T_photo ON T_joueur.FK_Photo = T_photo.PK_photo
-             WHERE T_joueur.FK_equipe = " . $fkEquipe, 
-            array());
+             WHERE T_joueur.FK_equipe = " . $fkEquipe,
+            array()
+        );
         foreach ($query as $data) {
-            $joueur = new Joueur($data['PK_joueur'], $data['Nom'], $data['DateNaissance'],
-             $data['Numero'], $data['Salaire'], $data['NbrBut'], $data['NbrTitre'],
-             $data['position_nom'],$data['FK_equipe'],$data['photo_url']);
+            $joueur = new Joueur(
+                $data['PK_joueur'],
+                $data['Nom'],
+                $data['DateNaissance'],
+                $data['Numero'],
+                $data['Salaire'],
+                $data['NbrBut'],
+                $data['NbrTitre'],
+                $data['position_nom'],
+                $data['FK_equipe'],
+                $data['photo_url']
+            );
             $liste[$count++] = $joueur;
         }
         return $liste;
@@ -40,10 +50,24 @@ class JoueurBDManager
     {
         $query = "INSERT INTO T_Joueur (Nom, DateNaissance, Numero, NbrTitre, Salaire, NbrBut, FK_position, FK_equipe, FK_Photo) 
         values(:nom, :dateNaissance, :numero, :nbrTitre, :salaire, :nbrBut, :fk_position, :fk_equipe, :fk_photo)";
-        $params = array('nom' => $nom, 'dateNaissance' => $dateNaissance, 'numero' => $numero, 'nbrTitre' => $nbrTitre, 'salaire' => $salaire, 
-        'nbrBut' => $nbrBut, 'fk_position' => $fk_position, 'fk_equipe'=> $fk_equipe, 'fk_photo' => $fk_photo);
+        $params = array(
+            'nom' => $nom,
+            'dateNaissance' => $dateNaissance,
+            'numero' => $numero,
+            'nbrTitre' => $nbrTitre,
+            'salaire' => $salaire,
+            'nbrBut' => $nbrBut,
+            'fk_position' => $fk_position,
+            'fk_equipe' => $fk_equipe,
+            'fk_photo' => $fk_photo
+        );
         $res = connexion::getInstance()->ExecuteQuery($query, $params);
-        return connexion::getInstance()->GetLastId('T_joueur');		
+        if ($res > 0) {
+            return 'True';
+        } else {
+            return 'False';
+        }
+
     }
 
 
@@ -51,16 +75,22 @@ class JoueurBDManager
     {
         $query = "UPDATE T_joueur set Nom = :nom, DateNaissance = :dateNaissance, Numero = :numero, NbrTitre = :nbrTitre, Salaire = :salaire,
         NbrBut = :nbrBut, FK_position = :fk_position where PK_joueur = :pk_joueur";
-        $params = array('nom' => $nom, 'dateNaissance' => $dateNaissance, 'numero' => $numero, 'nbrTitre' => $nbrTitre, 'salaire' => $salaire, 
-        'nbrBut' => $nbrBut, 'fk_position' => $fk_position, 'pk_joueur' => $pk_joueur);
+        $params = array(
+            'nom' => $nom,
+            'dateNaissance' => $dateNaissance,
+            'numero' => $numero,
+            'nbrTitre' => $nbrTitre,
+            'salaire' => $salaire,
+            'nbrBut' => $nbrBut,
+            'fk_position' => $fk_position,
+            'pk_joueur' => $pk_joueur
+        );
         $res = connexion::getInstance()->ExecuteQuery($query, $params);
-        if ($res > 0)
-        {
-            return 'True';
+        if ($res > 0) {
+            return '<result>True</result>';
+        } else {
+            return '<result>False</result>';
         }
-        else{
-            return 'False';
-        }	
     }
 
     /**

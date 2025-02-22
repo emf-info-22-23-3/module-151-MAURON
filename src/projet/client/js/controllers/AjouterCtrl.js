@@ -14,7 +14,7 @@ class AjouterCtrl {
     valider.addEventListener("click", () => {
         http.ajouterJoueur(document.getElementById('nom').value, document.getElementById('dateNaissance').value,
             document.getElementById('numero').value, document.getElementById('nbrTitre').value, document.getElementById('salaire').value, document.getElementById('nbrBut').value,
-            2, document.getElementById('cmbEquipe').value,document.getElementById('cmbPhoto').value, this.afficheAjoutSuccess, this.afficheAjoutErreur)
+            document.getElementById('cmbPosition').value, document.getElementById('cmbEquipe').value,document.getElementById('cmbPhoto').value, this.afficheAjoutSuccess, this.afficheAjoutErreur)
     });
   }
 
@@ -57,13 +57,14 @@ class AjouterCtrl {
   }
 
   afficheAjoutSuccess() {
-    alert("L'ajout du joueur s'est fait correctement")
+    alert("L'ajout du joueur s'est fait correctement");
+    indexCtrl.loadAuthentifie();
   }
 
   afficheAjoutErreur(xhr, status, error){
-    console.error("Erreur lors du chargement des positions:", status, error);
+    console.error("Une valeur entrée n'est pas valide", status, error);
     alert(
-      "Une erreur est survenue lors du chargement des positions. Veuillez réessayer plus tard."
+      "Une valeur entrée n'est pas valide"
     );
   }
 
