@@ -85,7 +85,7 @@ class JoueurBDManager
             'fk_position' => $fk_position,
             'pk_joueur' => $pk_joueur
         );
-        $res = connexion::getInstance()->ExecuteQuery($query, $params);
+        $res = connexion::getInstance()->executeQuery($query, $params);
         if ($res > 0) {
             return '<result>True</result>';
         } else {

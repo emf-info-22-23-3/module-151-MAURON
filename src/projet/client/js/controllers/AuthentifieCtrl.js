@@ -46,7 +46,7 @@ class AuthentifieCtrl {
         document.getElementById("nbrBut").value,
         document.getElementById("cmbPosition").value,
         JSON.parse(cmbJoueurs.value).pk_joueur,
-        this.afficheModificationSuccess,
+        this.afficheModificationSuccess.bind(this),
         this.afficheModificationErreur
       );
     });
@@ -123,7 +123,8 @@ class AuthentifieCtrl {
     }
   }
 
-  afficheModificationSuccess() {
+  afficheModificationSuccess(data) {
+    console.log(data)
     alert("La modification du joueur s'est fait correctement");
   }
 
@@ -169,7 +170,7 @@ class AuthentifieCtrl {
     var joueurJson = JSON.parse(cmbJoueurs.value);
     document.getElementById("nom").value = joueurJson.nom;
     document.getElementById("dateNaissance").value = joueurJson.datenaissance;
-    document.getElementById("salaire").value = joueurJson.salaire + " CHF";
+    document.getElementById("salaire").value = joueurJson.salaire;
     document.getElementById("nbrBut").value = joueurJson.nbrBut;
     document.getElementById("nbrTitre").value = joueurJson.nbrTitre;
     document.getElementById("numero").value = joueurJson.numero;

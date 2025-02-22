@@ -1,12 +1,18 @@
 <?php
 include_once('workers/JoueurBDManager.php');
+include_once('sessionManager.php');
 include_once('beans/Joueur.php');
 if (isset($_SERVER['REQUEST_METHOD'])) {
+
+	
+
 	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		$bdReader = new JoueurBDManager();
 		echo $bdReader->getInXML($_GET['FK_equipe']);
 	}
 
+	$manager = new SessionManager();
+	if($manager->isConnected()){
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$bdReader = new JoueurBDManager();
 		if (
@@ -32,7 +38,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 	if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 		//lit les données brutes de la requête (php://input) et de les analyser en un tableau $vars
 		parse_str(file_get_contents("php://input"), $vars);
-
+		
 		if (
 			isset($vars['nom']) and isset($vars['dateNaissance']) and isset($vars['numero']) and isset($vars['nbrTitre'])
 			and isset($vars['salaire']) and isset($vars['nbrBut']) and isset($vars['fk_position']) and isset($vars['pk_joueur'])
@@ -40,17 +46,18 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 
 			$bdReader = new JoueurBDManager();
 			echo $bdReader->update(
-				htmlspecialchars( $_POST['pk_joueur'],ENT_QUOTES, 'utf-8'),
-				htmlspecialchars( $_POST['nom'],ENT_QUOTES, 'utf-8'),
-				htmlspecialchars( $_POST['dateNaissance'],ENT_QUOTES, 'utf-8'),
-				htmlspecialchars( $_POST['numero'],ENT_QUOTES, 'utf-8'),
-				htmlspecialchars( $_POST['nbrTitre'],ENT_QUOTES, 'utf-8'),
-				htmlspecialchars( $_POST['salaire'],ENT_QUOTES, 'utf-8'),
-				htmlspecialchars( $_POST['nbrBut'],ENT_QUOTES, 'utf-8'),
-				htmlspecialchars( $_POST['fk_position'],ENT_QUOTES, 'utf-8')
+				htmlspecialchars( $vars['pk_joueur'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $vars['nom'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $vars['dateNaissance'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $vars['numero'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $vars['nbrTitre'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $vars['salaire'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $vars['nbrBut'],ENT_QUOTES, 'utf-8'),
+				htmlspecialchars( $vars['fk_position'],ENT_QUOTES, 'utf-8')
 			);
 		}
 	}
+}
 }
 
 ?>
