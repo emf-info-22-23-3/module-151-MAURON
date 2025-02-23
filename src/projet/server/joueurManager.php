@@ -11,8 +11,8 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 		echo $bdReader->getInXML($_GET['FK_equipe']);
 	}
 
-	$manager = new SessionManager();
-	if($manager->isConnected()){
+	//$manager = new SessionManager();
+	//if($manager->isConnected()){
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$bdReader = new JoueurBDManager();
 		if (
@@ -56,7 +56,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 				htmlspecialchars( $vars['fk_position'],ENT_QUOTES, 'utf-8')
 			);
 		}
-	}
+	//}
 }
 }
 

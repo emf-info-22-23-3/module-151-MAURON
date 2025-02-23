@@ -21,7 +21,7 @@ class NonAuthentifieCtrl {
     }
 
     connectSuccess(data, text, jqXHR) {
-        if ($(data).find("result").text() != null) {
+        if ($(data).find("result").text() == 'true') {
             alert("Login ok");
             sessionStorage.setItem("isConnected", "true");
             indexCtrl.loadAuthentifie();
