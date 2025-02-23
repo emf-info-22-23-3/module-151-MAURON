@@ -12,11 +12,12 @@ class NonAuthentifieCtrl {
             http.chargerJoueur(cmbEquipe.value,this.chargerJoueurSuccess,this.gestionErreurJoueur);
         });
 
+        http.chargerAllJoueur(this.chargerJoueurSuccess,this.gestionErreurJoueur);
 
-        cmbJoueurs.addEventListener("change", this.afficheInfoJoueur.bind(this));
+        cmbJoueurs.addEventListener("change", this.afficheInfoJoueur);
 
         butConnect.addEventListener("click", () => {
-            http.connect(document.getElementById("username").value, document.getElementById("mot de passe").value, this.connectSuccess, this.gestionErreurLogin);
+            http.connect(document.getElementById("username").value, document.getElementById("mot de passe").value, this.connectSuccess.bind(this), this.gestionErreurLogin);
         });
     }
 
@@ -24,10 +25,12 @@ class NonAuthentifieCtrl {
         if ($(data).find("result").text() == 'true') {
             alert("Login ok");
             sessionStorage.setItem("isConnected", "true");
-            indexCtrl.loadAuthentifie();
+            console.log($(data).find("user").text());
+            indexCtrl.loadPage($(data).find("user").text());
         }
         else {
-            alert("Erreur lors du login");
+            alert("Erreur lors du login");$
+            console.log(data);
         }
 
     }
@@ -42,13 +45,10 @@ class NonAuthentifieCtrl {
                     equipe,
                     JSON.stringify(equipe.pk_equipe)
                 );
-                console.log("chargerEquipe");
             });
-        if (cmbEquipe.options.length > 0) {
-                cmbEquipe.selectedIndex = 0; // Sélectionne la première option
-                console.log(cmbEquipe.value);
-                http.chargerJoueur(cmbEquipe.value,this.chargerJoueurSuccess,this.gestionErreurJoueur);
-            }
+
+        cmbEquipe.selectedIndex = -1;
+
     }
 
     chargerJoueurSuccess(data, text, jqXHR) {
@@ -91,7 +91,7 @@ class NonAuthentifieCtrl {
         alert("une erreur est survenue lors de votre login");
     }
 
-    afficheInfoJoueur(event) {
+    afficheInfoJoueur() {
         var cmbJoueurs = document.getElementById("cmbJoueur");
         var joueurJson = JSON.parse(cmbJoueurs.value);
         document.getElementById("nom").textContent = joueurJson.nom;

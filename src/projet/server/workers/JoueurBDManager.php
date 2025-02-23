@@ -46,6 +46,36 @@ class JoueurBDManager
         return $liste;
     }
 
+    public function readAllJoueurs()
+    {
+        $count = 0;
+        $liste = array();
+        $connection = Connexion::getInstance();
+        $query = $connection->selectQuery(
+            "SELECT T_joueur.*, T_position.Nom AS position_nom, T_photo.Photo AS photo_url
+             FROM T_joueur
+             LEFT JOIN T_position ON T_joueur.FK_position = T_position.PK_position
+             LEFT JOIN T_photo ON T_joueur.FK_Photo = T_photo.PK_photo",
+            array()
+        );
+        foreach ($query as $data) {
+            $joueur = new Joueur(
+                $data['PK_joueur'],
+                $data['Nom'],
+                $data['DateNaissance'],
+                $data['Numero'],
+                $data['Salaire'],
+                $data['NbrBut'],
+                $data['NbrTitre'],
+                $data['position_nom'],
+                $data['FK_equipe'],
+                $data['photo_url']
+            );
+            $liste[$count++] = $joueur;
+        }
+        return $liste;
+    }
+
     public function add($nom, $dateNaissance, $numero, $nbrTitre, $salaire, $nbrBut, $fk_position, $fk_equipe, $fk_photo)
     {
         $query = "INSERT INTO T_Joueur (Nom, DateNaissance, Numero, NbrTitre, Salaire, NbrBut, FK_position, FK_equipe, FK_Photo) 
@@ -101,6 +131,17 @@ class JoueurBDManager
     public function getInXML($fkPays)
     {
         $listJoueurs = $this->readJoueurs($fkPays);
+        $result = '<joueurs>';
+        for ($i = 0; $i < sizeof($listJoueurs); $i++) {
+            $result = $result . $listJoueurs[$i]->toXML();
+        }
+        $result = $result . '</joueurs>';
+        return $result;
+    }
+
+    public function getInXMLALL()
+    {
+        $listJoueurs = $this->readAllJoueurs();
         $result = '<joueurs>';
         for ($i = 0; $i < sizeof($listJoueurs); $i++) {
             $result = $result . $listJoueurs[$i]->toXML();

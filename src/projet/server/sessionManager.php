@@ -32,7 +32,7 @@ class SessionManager
     public function currentUser()
     {
         // Si un utilisateur est connecté, on retourne ses informations
-        return isset($_SESSION['user']);
+        return $_SESSION['user'];
     }
 }
 

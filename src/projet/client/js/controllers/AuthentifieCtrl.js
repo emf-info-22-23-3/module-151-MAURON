@@ -6,19 +6,20 @@
 });*/
 
 class AuthentifieCtrl {
-  constructor() {
+  constructor(user) {
     var cmbEquipe = document.getElementById("cmbEquipe");
     var cmbJoueurs = document.getElementById("cmbJoueur");
     var butDeco = document.getElementById("deconnecter");
     var ajouter = document.getElementById("ajouter");
     var modifier = document.getElementById("modifier");
 
+    document.getElementById("user").textContent = user;
     $.getScript("js/beans/Equipe.js");
     $.getScript("js/beans/Joueur.js");
     $.getScript("js/beans/Position.js");
 
     http.chargerEquipe(this.chargerEquipeSuccess, this.gestionErreurEquipe);
-
+    http.chargerAllJoueur(this.chargerJoueurSuccess,this.gestionErreurJoueur);
     http.chargerPosition(
       this.chargerPositionSuccess,
       this.gestionErreurPosition
@@ -56,15 +57,6 @@ class AuthentifieCtrl {
     });
   }
 
-  connectSuccess(data, text, jqXHR) {
-    if ($(data).find("result").text() != null) {
-      alert("Login ok");
-      indexCtrl.loadAuthentifie();
-    } else {
-      alert("Erreur lors du login");
-    }
-  }
-
   chargerEquipeSuccess(data, text, jqXHR) {
     var cmbEquipe = document.getElementById("cmbEquipe");
     $(data)
@@ -76,7 +68,7 @@ class AuthentifieCtrl {
         var option = new Option(equipe, equipe.getPk());
         cmbEquipe.options[cmbEquipe.options.length] = option;
       });
-    document.getElementById("cmbEquipe").selectedIndex = 0;
+      document.getElementById("cmbEquipe").selectedIndex = -1;
   }
 
   chargerJoueurSuccess(data, text, jqXHR) {
@@ -158,11 +150,6 @@ class AuthentifieCtrl {
     alert(
       "Une erreur est survenue lors du chargement des équipes. Veuillez réessayer plus tard."
     );
-  }
-
-  gestionErreurLogin(xhr, status, error) {
-    console.error("Erreur lors de votre login : ", status, error);
-    alert("une erreur est survenue lors de votre login");
   }
 
   afficheInfoJoueur(event) {

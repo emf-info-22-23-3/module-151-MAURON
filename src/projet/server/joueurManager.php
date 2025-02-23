@@ -6,9 +6,15 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 
 	
 
-	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	if ($_SERVER['REQUEST_METHOD'] == 'GET'&& $_GET['action'] == "joueurEquipe" ) {
 		$bdReader = new JoueurBDManager();
 		echo $bdReader->getInXML($_GET['FK_equipe']);
+	}
+
+	
+	if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['action'] == "allJoueur") {
+		$bdReader = new JoueurBDManager();
+		echo $bdReader->getInXMLALL();
 	}
 
 	//$manager = new SessionManager();

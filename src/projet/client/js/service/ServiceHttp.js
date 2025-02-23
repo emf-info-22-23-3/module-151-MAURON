@@ -19,12 +19,23 @@ class ServiceHttp {
     });
   }
 
+  chargerAllJoueur(successCallback, errorCallback){
+    $.ajax({
+      type: "GET",
+      dataType: "xml",
+      url: BASE_URL + "joueurManager.php",
+      data: "action=allJoueur",
+      success: successCallback,
+      error: errorCallback,
+    });
+  }
+
   chargerJoueur(fk_equipe, successCallback, errorCallback) {
     $.ajax({
       type: "GET",
       dataType: "xml",
       url: BASE_URL + "joueurManager.php",
-      data: "FK_equipe=" + fk_equipe,
+      data: "action=joueurEquipe&FK_equipe=" + fk_equipe,
       success: successCallback,
       error: errorCallback,
     });

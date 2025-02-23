@@ -18,10 +18,10 @@ class IndexCtrl {
 
   //Toutes ces méthodes permettent le chargement des pages
 
-  loadPage() {
+  loadPage(user) {
     if (sessionStorage.getItem("isConnected") === "true") {
       console.log("charger");
-      this.loadAuthentifie();
+      this.loadAuthentifie(user);
     } else {
       this.loadNonAuthentifie();
     }
@@ -37,9 +37,9 @@ class IndexCtrl {
     });
   }
 
-  loadAuthentifie() {
+  loadAuthentifie(user) {
     this.vue.chargerVue("authentifie", function () {
-      new AuthentifieCtrl();
+      new AuthentifieCtrl(user);
     });
   }
 
