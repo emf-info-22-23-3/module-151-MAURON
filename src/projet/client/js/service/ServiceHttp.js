@@ -124,18 +124,7 @@ class ServiceHttp {
     });
   }
 
-  modifierJoueur(
-    nom,
-    dateNaissance,
-    numero,
-    nbrTitre,
-    salaire,
-    nbrBut,
-    fk_position,
-    pk_joueur,
-    successCallback,
-    errorCallback
-  ) {
+  modifierJoueur(nom,dateNaissance,numero,nbrTitre,salaire,nbrBut,fk_position,pk_joueur,successCallback,errorCallback) {
     $.ajax({
       type: "PUT",
       url: BASE_URL + "joueurManager.php",

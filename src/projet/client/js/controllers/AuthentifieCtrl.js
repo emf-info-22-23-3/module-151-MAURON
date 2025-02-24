@@ -1,9 +1,3 @@
-/*document.addEventListener("DOMContentLoaded", function () {
-    if (sessionStorage.getItem('isConnected') === 'true') {
-        console.log('charger');
-        indexCtrl.loadAuthentifie();
-    }
-});*/
 
 class AuthentifieCtrl {
   constructor(user) {
@@ -47,7 +41,7 @@ class AuthentifieCtrl {
         document.getElementById("nbrBut").value,
         document.getElementById("cmbPosition").value,
         JSON.parse(cmbJoueurs.value).pk_joueur,
-        this.afficheModificationSuccess.bind(this),
+        this.afficheModificationSuccess,
         this.afficheModificationErreur
       );
     });
@@ -59,9 +53,7 @@ class AuthentifieCtrl {
 
   chargerEquipeSuccess(data, text, jqXHR) {
     var cmbEquipe = document.getElementById("cmbEquipe");
-    $(data)
-      .find("equipe")
-      .each(function () {
+    $(data).find("equipe").each(function () {
         var equipe = new Equipe();
         equipe.setNom($(this).find("nom").text());
         equipe.setPk($(this).find("pk_equipe").text());
@@ -111,16 +103,26 @@ class AuthentifieCtrl {
       alert("Déconnexion réussie :)");
       indexCtrl.loadNonAuthentifie();
     } else {
-      alert("Erreur lors du login");
+      alert("Erreur lors de la déconnexion");
     }
   }
 
-  afficheModificationSuccess(data) {
-    console.log(data)
-    alert("La modification du joueur s'est fait correctement");
-  }
+  afficheModificationSuccess(data,text, jqXHR) {
+    console.log("test");
+    console.log($(data).text());
 
-  afficheModificationErreur(status, error) {
+    if($(data).text() != null){
+    if($(data).text() == "true" ){
+        alert("Modification réussie");
+    } else {
+        alert("Aucune donnée modifié ou donnée invalide");
+    }}else {
+        alert(" donnée invalide");
+    }
+}
+  
+
+  afficheModificationErreur(xhr,status, error) {
     console.error("Erreur lors de la modification du joueur:", status, error);
     alert(
       "Une erreur est survenue lors de la modification du joueur. Veuillez réessayer plus tard."
@@ -152,7 +154,7 @@ class AuthentifieCtrl {
     );
   }
 
-  afficheInfoJoueur(event) {
+  afficheInfoJoueur() {
     var cmbJoueurs = document.getElementById("cmbJoueur");
     var joueurJson = JSON.parse(cmbJoueurs.value);
     document.getElementById("nom").value = joueurJson.nom;
@@ -170,7 +172,6 @@ class AuthentifieCtrl {
     for (let option of select.options) {
       if (option.text === text) {
         option.selected = true;
-        return;
       }
     }
   }

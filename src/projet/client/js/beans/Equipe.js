@@ -15,10 +15,18 @@ class Equipe {
     this.pk_equipe = pk_equipe;
   }
 
+  /**
+   * Getter pour le nom de l'équipe
+   * @returns nom de l'équipe
+   */
   getNom() {
     return this.nom;
   }
 
+  /**
+   * Getter pour la pk de l'équipe
+   * @returns pk de l'équipe
+   */
   getPk(){
     return this.pk_equipe;
   }

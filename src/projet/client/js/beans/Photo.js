@@ -16,16 +16,24 @@ class Photo {
       this.pk_photo = pk_photo;
     }
 
+    /**
+     * Getter pour la clé primaire de la photo
+     * @returns Identifiant unique de la photo
+     */
     getPk(){
       return this.pk_photo;
     }
 
+    /**
+     * Setter pour la photo
+     * @param {number} photo - photo
+     */
     setPhoto(photo){
         this.photo = photo;
     }
   
     /**
-     * Retourne le nom de la Position sous forme de texte
+     * Retourne le nom de la photo sous forme de texte
      * @returns {string} Le nom de la photo
      */
     toString() {

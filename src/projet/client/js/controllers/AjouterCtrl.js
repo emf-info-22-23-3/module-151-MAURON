@@ -61,16 +61,21 @@ class AjouterCtrl {
       });
   }
 
-  afficheAjoutSuccess() {
-    alert("L'ajout du joueur s'est fait correctement");
-    indexCtrl.loadAuthentifie();
+  afficheAjoutSuccess(data) {
+
+    if($(data).text() == 'true'){
+      alert("L'ajout du joueur s'est fait correctement");
+      indexCtrl.loadAuthentifie();
+    } else {
+      alert("Une valeur entrée n'est pas valide");
+    }
+    
+    
   }
 
   afficheAjoutErreur(xhr, status, error){
     console.error("Une valeur entrée n'est pas valide", status, error);
-    alert(
-      "Une valeur entrée n'est pas valide"
-    );
+    alert("Une valeur entrée n'est pas valide");
   }
 
   gestionErreurPosition(xhr, status, error) {

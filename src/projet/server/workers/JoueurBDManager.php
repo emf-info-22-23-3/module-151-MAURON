@@ -10,8 +10,8 @@ include_once('Connexion.php');
 class JoueurBDManager
 {
     /**
-     * Fonction permettant la lecture des equipes.
-     * Cette fonction permet de retourner la liste des equipes se trouvant dans la liste
+     * Fonction permettant la lecture des joueurs en fonction d'une équipe.
+     * Cette fonction permet de retourner la liste des joueurs en fonction d'une équipe
      *
      * @return liste des equipes
      */
@@ -25,8 +25,8 @@ class JoueurBDManager
              FROM T_joueur
              LEFT JOIN T_position ON T_joueur.FK_position = T_position.PK_position
              LEFT JOIN T_photo ON T_joueur.FK_Photo = T_photo.PK_photo
-             WHERE T_joueur.FK_equipe = " . $fkEquipe,
-            array()
+             WHERE T_joueur.FK_equipe = :fkEquipe",
+            array(":fkEquipe" => $fkEquipe)
         );
         foreach ($query as $data) {
             $joueur = new Joueur(
@@ -46,6 +46,12 @@ class JoueurBDManager
         return $liste;
     }
 
+    /**
+     * Fonction permettant la lecture de tous les joueurs.
+     * Cette fonction permet de retourner la liste des joueurs se trouvant dans la DB
+     *
+     * @return liste des joueurs
+     */
     public function readAllJoueurs()
     {
         $count = 0;
@@ -76,6 +82,12 @@ class JoueurBDManager
         return $liste;
     }
 
+    /**
+     * Fonction permettant d'ajouter un joueur.
+     * Cette fonction permet d'ajouter un joueur dans la DB
+     *
+     * @return  True si réussie sinon False
+     */
     public function add($nom, $dateNaissance, $numero, $nbrTitre, $salaire, $nbrBut, $fk_position, $fk_equipe, $fk_photo)
     {
         $query = "INSERT INTO T_Joueur (Nom, DateNaissance, Numero, NbrTitre, Salaire, NbrBut, FK_position, FK_equipe, FK_Photo) 
@@ -93,13 +105,19 @@ class JoueurBDManager
         );
         $res = connexion::getInstance()->ExecuteQuery($query, $params);
         if ($res > 0) {
-            return 'True';
+            return true;
         } else {
-            return 'False';
+            return false;
         }
 
     }
 
+    /**
+     * Fonction permettant de modifier un joueur.
+     * Cette fonction permet de modifier un joueur
+     *
+     * @return  True si réussie sinon False
+     */
 
     public function update($pk_joueur, $nom, $dateNaissance, $numero, $nbrTitre, $salaire, $nbrBut, $fk_position)
     {
@@ -117,16 +135,17 @@ class JoueurBDManager
         );
         $res = connexion::getInstance()->executeQuery($query, $params);
         if ($res > 0) {
-            return '<result>True</result>';
+            return true;
         } else {
-            return '<result>False</result>';
+            return false;
+
         }
     }
 
     /**
-     * Fonction permettant de retourner la liste des equipes en XML.
+     * Fonction permettant de retourner la liste des joueurs en fonction d'une équipe en XML.
      *
-     * @return String. Liste des equipes en XML
+     * @return String. Liste des joueurs en XML
      */
     public function getInXML($fkPays)
     {
@@ -139,6 +158,11 @@ class JoueurBDManager
         return $result;
     }
 
+    /**
+     * Fonction permettant de retourner la liste des joueurs en XML.
+     *
+     * @return String. Liste des joueurs en XML
+     */
     public function getInXMLALL()
     {
         $listJoueurs = $this->readAllJoueurs();

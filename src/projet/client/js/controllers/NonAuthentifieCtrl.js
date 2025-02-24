@@ -25,12 +25,10 @@ class NonAuthentifieCtrl {
         if ($(data).find("result").text() == 'true') {
             alert("Login ok");
             sessionStorage.setItem("isConnected", "true");
-            console.log($(data).find("user").text());
             indexCtrl.loadPage($(data).find("user").text());
         }
         else {
-            alert("Erreur lors du login");$
-            console.log(data);
+            alert("Erreur lors du login");
         }
 
     }
@@ -38,16 +36,13 @@ class NonAuthentifieCtrl {
     chargerEquipeSuccess(data, text, jqXHR) {
         var cmbEquipe = document.getElementById("cmbEquipe");
         $(data).find("equipe").each(function () {
-                var equipe = new Equipe();
-                equipe.setNom($(this).find("nom").text());
-                equipe.setPk($(this).find("pk_equipe").text());
-                cmbEquipe.options[cmbEquipe.options.length] = new Option(
-                    equipe,
-                    JSON.stringify(equipe.pk_equipe)
-                );
-            });
-
-        cmbEquipe.selectedIndex = -1;
+            var equipe = new Equipe();
+            equipe.setNom($(this).find("nom").text());
+            equipe.setPk($(this).find("pk_equipe").text());
+            var option = new Option(equipe, equipe.getPk());
+            cmbEquipe.options[cmbEquipe.options.length] = option;
+          });
+          document.getElementById("cmbEquipe").selectedIndex = -1;
 
     }
 
@@ -80,7 +75,7 @@ class NonAuthentifieCtrl {
     }
 
     gestionErreurJoueur(xhr, status, error) {
-        console.error("Erreur lors du chargement des équipes :", status, error);
+        console.error("Erreur lors du chargement des joueurs :", status, error);
         alert(
             "Une erreur est survenue lors du chargement des équipes. Veuillez réessayer plus tard."
         );
@@ -96,7 +91,7 @@ class NonAuthentifieCtrl {
         var joueurJson = JSON.parse(cmbJoueurs.value);
         document.getElementById("nom").textContent = joueurJson.nom;
         document.getElementById("dateNaissance").textContent = joueurJson.datenaissance;
-        document.getElementById("salaire").textContent = joueurJson.salaire + " CHF";
+        document.getElementById("salaire").textContent = joueurJson.salaire;
         document.getElementById("nbrBut").textContent = joueurJson.nbrBut;
         document.getElementById("nbrTitre").textContent = joueurJson.nbrTitre;
         document.getElementById("numero").textContent = joueurJson.numero;

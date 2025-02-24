@@ -16,6 +16,10 @@ class Position {
       this.pk_position = pk_position;
     }
 
+    /**
+     * Retourne la pk de la Position sous forme de texte
+     * @returns {string} La pk de la Position
+     */
     getPk(){
       return this.pk_position;
     }
