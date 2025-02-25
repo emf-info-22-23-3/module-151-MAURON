@@ -3,7 +3,8 @@
  * Classe Equipe
  *
  * Cette classe représente une Equipe.
- *
+ * @author Simon Mauron
+ * @version 1
  */
 class Equipe
 {

@@ -5,7 +5,8 @@ include_once('Connexion.php');
  * Classe EquipeBDManager
  *
  * Cette classe permet la gestion des équipes dans la base de données
- *
+ * @author Simon Mauron
+ * @version 1
  */
 class JoueurBDManager
 {

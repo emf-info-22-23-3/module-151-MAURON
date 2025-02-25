@@ -3,7 +3,8 @@
  * Classe Position
  *
  * Cette classe représente une Position.
- *
+ * @author Simon Mauron
+ * @version 1
  */
 class Position
 {

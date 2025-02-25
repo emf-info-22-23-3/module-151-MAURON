@@ -1,7 +1,7 @@
 /*
   But :    Chargement des différentes vues 
   Auteur : Simon Mauron
-  Date :   17.02.2025 / V1.0
+  Date :   25.02.2025 / V1.0
 */
 
 $().ready(function () {
@@ -22,7 +22,6 @@ class IndexCtrl {
   loadPage(user) {
     if (sessionStorage.getItem("isConnected") === "true") {
       this.loadAuthentifie(user);
-
     } else {
       this.loadNonAuthentifie();
     }

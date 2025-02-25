@@ -3,7 +3,8 @@
  * Classe Photo
  *
  * Cette classe représente une Photo.
- *
+ * @author Simon Mauron
+ * @version 1
  */
 class Photo
 {

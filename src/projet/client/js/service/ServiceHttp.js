@@ -1,14 +1,19 @@
 /*
-  But :    Classe qui permet de faire des requêtes sur les API
+  But :    Classe qui permet de faire des requêtes au server
   Auteur : Simon Mauron
-  Date :   11.06.2024 / V1.0
+  Date :   25.02.2025 / V1.0
 */
-
+// Définition de l'URL de base du serveur
 var BASE_URL = "http://localhost:8080/projet/server/";
 
 class ServiceHttp {
   constructor() {}
 
+  /**
+   * Charge la liste des équipes en effectuant une requête GET.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
   chargerEquipe(successCallback, errorCallback) {
     $.ajax({
       type: "GET",
@@ -19,6 +24,11 @@ class ServiceHttp {
     });
   }
 
+  /**
+   * Charge la liste de tous les joueurs.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
   chargerAllJoueur(successCallback, errorCallback){
     $.ajax({
       type: "GET",
@@ -30,6 +40,12 @@ class ServiceHttp {
     });
   }
 
+  /**
+   * Charge les joueurs d'une équipe spécifique.
+   * @param {number} fk_equipe - Clé étrangère de l'équipe.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
   chargerJoueur(fk_equipe, successCallback, errorCallback) {
     $.ajax({
       type: "GET",
@@ -41,6 +57,12 @@ class ServiceHttp {
     });
   }
 
+    /**
+   * Charge la liste des positions disponibles.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
+
   chargerPosition(successCallback, errorCallback) {
     $.ajax({
       type: "GET",
@@ -51,6 +73,11 @@ class ServiceHttp {
     });
   }
 
+  /**
+   * Charge les photos associées aux joueurs.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
   chargerphoto(successCallback, errorCallback) {
     $.ajax({
       type: "GET",
@@ -61,6 +88,13 @@ class ServiceHttp {
     });
   }
 
+  /**
+   * Effectue une connexion utilisateur avec un login et un mot de passe.
+   * @param {string} login - Nom d'utilisateur.
+   * @param {string} passwd - Mot de passe.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
   connect(login, passwd, successCallback, errorCallback) {
     $.ajax({
       type: "POST",
@@ -72,6 +106,11 @@ class ServiceHttp {
     });
   }
 
+  /**
+   * Déconnecte l'utilisateur.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
   disconnect(successCallback, errorCallback) {
     $.ajax({
       type: "POST",
@@ -83,19 +122,21 @@ class ServiceHttp {
     });
   }
 
-  ajouterJoueur(
-    nom,
-    dateNaissance,
-    numero,
-    nbrTitre,
-    salaire,
-    nbrBut,
-    fk_position,
-    fk_equipe,
-    fk_photo,
-    successCallback,
-    errorCallback
-  ) {
+  /**
+   * Ajoute un joueur à la base de données.
+   * @param {string} nom - Nom du joueur.
+   * @param {string} dateNaissance - Date de naissance du joueur.
+   * @param {number} numero - Numéro du joueur.
+   * @param {number} nbrTitre - Nombre de titres remportés.
+   * @param {number} salaire - Salaire du joueur.
+   * @param {number} nbrBut - Nombre de buts marqués.
+   * @param {number} fk_position - Clé étrangère de la position du joueur.
+   * @param {number} fk_equipe - Clé étrangère de l'équipe du joueur.
+   * @param {number} fk_photo - Clé étrangère de la photo du joueur.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
+  ajouterJoueur(nom,dateNaissance,numero,nbrTitre,salaire,nbrBut,fk_position,fk_equipe,fk_photo,successCallback,errorCallback) {
     $.ajax({
       type: "POST",
       dataType: "xml",
@@ -124,6 +165,19 @@ class ServiceHttp {
     });
   }
 
+  /**
+   * Modifie les informations d'un joueur existant.
+   * @param {string} nom - Nom du joueur.
+   * @param {string} dateNaissance - Date de naissance du joueur.
+   * @param {number} numero - Numéro du joueur.
+   * @param {number} nbrTitre - Nombre de titres remportés.
+   * @param {number} salaire - Salaire du joueur.
+   * @param {number} nbrBut - Nombre de buts marqués.
+   * @param {number} fk_position - Clé étrangère de la position du joueur.
+   * @param {number} pk_joueur - Clé primaire du joueur à modifier.
+   * @param {function} successCallback - Fonction de rappel en cas de succès.
+   * @param {function} errorCallback - Fonction de rappel en cas d'erreur.
+   */
   modifierJoueur(nom,dateNaissance,numero,nbrTitre,salaire,nbrBut,fk_position,pk_joueur,successCallback,errorCallback) {
     $.ajax({
       type: "PUT",

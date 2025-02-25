@@ -5,7 +5,8 @@ include_once('Connexion.php');
  * Classe PhotoBDManager
  *
  * Cette classe permet la gestion des photo des joueurs dans la base de données
- *
+ * @author Simon Mauron
+ * @version 1
  */
 class PhotoBDManager
 {

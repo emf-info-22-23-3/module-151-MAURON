@@ -1,4 +1,18 @@
+/**
+ * La classe AuthentifieCtrl gère l'authentification et l'interaction avec l'utilisateur authentifié.
+ * Elle permet de charger des équipes, des joueurs et des positions, tout en gérant les événements liés à la modification et à l'ajout de joueurs,
+ * ainsi que la déconnexion.
+ * @author Simon Mauron
+ * @version 1
+ */
+
 class AuthentifieCtrl {
+  /**
+   * Constructeur de la classe AuthentifieCtrl. Initialise les éléments de l'interface utilisateur, charge les données nécessaires
+   * (équipes, joueurs, positions), et ajoute des écouteurs d'événements pour la gestion des actions de l'utilisateur.
+   *
+   * @param {string} user - Le nom d'utilisateur authentifié.
+   */
   constructor(user) {
     var cmbEquipe = document.getElementById("cmbEquipe");
     var cmbJoueurs = document.getElementById("cmbJoueur");
@@ -11,6 +25,7 @@ class AuthentifieCtrl {
     $.getScript("js/beans/Joueur.js");
     $.getScript("js/beans/Position.js");
 
+    // Chargement des équipes, des joueurs et des positions
     http.chargerEquipe(this.chargerEquipeSuccess, this.gestionErreurEquipe);
     http.chargerAllJoueur(this.chargerJoueurSuccess, this.gestionErreurJoueur);
     http.chargerPosition(
@@ -18,6 +33,7 @@ class AuthentifieCtrl {
       this.gestionErreurPosition
     );
 
+    // Écouteurs d'événements
     cmbEquipe.addEventListener("change", () => {
       http.chargerJoueur(
         cmbEquipe.value,
@@ -44,12 +60,19 @@ class AuthentifieCtrl {
         this.afficheModificationErreur
       );
     });
-
+    // Écouteur de la déconnexion
     butDeco.addEventListener("click", () => {
       http.disconnect(this.deconnectSuccess, this.gestionErreurLogin);
     });
   }
 
+  /**
+   * Méthode appelée après le chargement réussi des équipes. Remplit la liste déroulante des équipes.
+   *
+   * @param {Object} data - Données reçues du serveur.
+   * @param {string} text - Message texte.
+   * @param {Object} jqXHR - Objet de la requête AJAX.
+   */
   chargerEquipeSuccess(data, text, jqXHR) {
     var cmbEquipe = document.getElementById("cmbEquipe");
     $(data)
@@ -64,6 +87,13 @@ class AuthentifieCtrl {
     document.getElementById("cmbEquipe").selectedIndex = -1;
   }
 
+  /**
+   * Méthode appelée après le chargement réussi des joueurs. Remplit la liste déroulante des joueurs.
+   *
+   * @param {Object} data - Données reçues du serveur.
+   * @param {string} text - Message texte.
+   * @param {Object} jqXHR - Objet de la requête AJAX.
+   */
   chargerJoueurSuccess(data, text, jqXHR) {
     var cmbJoueurs = document.getElementById("cmbJoueur");
     cmbJoueurs.options.length = 0;
@@ -86,7 +116,13 @@ class AuthentifieCtrl {
         );
       });
   }
-
+  /**
+   * Méthode appelée après le chargement réussi des positions. Remplit la liste déroulante des positions.
+   *
+   * @param {Object} data - Données reçues du serveur.
+   * @param {string} text - Message texte.
+   * @param {Object} jqXHR - Objet de la requête AJAX.
+   */
   chargerPositionSuccess(data, text, jqXHR) {
     var cmbPosition = document.getElementById("cmbPosition");
     $(data)
@@ -100,6 +136,13 @@ class AuthentifieCtrl {
       });
   }
 
+  /**
+   * Méthode appelée après une déconnexion réussie. Retire les données de session et redirige vers la page d'accueil.
+   *
+   * @param {Object} data - Données reçues du serveur.
+   * @param {string} text - Message texte.
+   * @param {Object} jqXHR - Objet de la requête AJAX.
+   */
   deconnectSuccess(data, text, jqXHR) {
     if ($(data).find("result").text() != null) {
       sessionStorage.removeItem("isConnected");
@@ -111,15 +154,28 @@ class AuthentifieCtrl {
     }
   }
 
+  /**
+   * Méthode appelée après une modification réussie d'un joueur. Affiche un message de succès.
+   *
+   * @param {Object} data - Données reçues du serveur.
+   * @param {string} text - Message texte.
+   * @param {Object} jqXHR - Objet de la requête AJAX.
+   */
   afficheModificationSuccess(data, text, jqXHR) {
-      if ($(data).text() == "true") {
-        alert("Modification réussie");
-      } else {
-        alert("Aucune donnée modifié ou donnée invalide");
-      }
-    } 
-  
+    if ($(data).text() == "true") {
+      alert("Modification réussie");
+    } else {
+      alert("Aucune donnée modifié ou donnée invalide");
+    }
+  }
 
+  /**
+   * Méthode appelée en cas d'erreur lors de la modification d'un joueur. Affiche un message d'erreur.
+   *
+   * @param {Object} xhr - Objet de la requête HTTP.
+   * @param {string} status - Statut de la requête.
+   * @param {string} error - Message d'erreur.
+   */
   afficheModificationErreur(xhr, status, error) {
     console.error("Erreur lors de la modification du joueur:", status, error);
     alert(
@@ -127,10 +183,20 @@ class AuthentifieCtrl {
     );
   }
 
+  /**
+   * Charge la page d'ajout d'un joueur.
+   */
   loadAjouter() {
     indexCtrl.loadAjouter();
   }
 
+  /**
+   * Méthode de gestion des erreurs lors du chargement des positions. Affiche un message d'erreur en cas d'échec.
+   *
+   * @param {Object} xhr - Objet de la requête HTTP.
+   * @param {string} status - Statut de la requête.
+   * @param {string} error - Message d'erreur.
+   */
   gestionErreurPosition(xhr, status, error) {
     console.error("Erreur lors du chargement des positions:", status, error);
     alert(
@@ -138,6 +204,13 @@ class AuthentifieCtrl {
     );
   }
 
+  /**
+   * Méthode de gestion des erreurs lors du chargement des équipes. Affiche un message d'erreur en cas d'échec.
+   *
+   * @param {Object} xhr - Objet de la requête HTTP.
+   * @param {string} status - Statut de la requête.
+   * @param {string} error - Message d'erreur.
+   */
   gestionErreurEquipe(xhr, status, error) {
     console.error("Erreur lors du chargement des équipes :", status, error);
     alert(
@@ -145,6 +218,13 @@ class AuthentifieCtrl {
     );
   }
 
+  /**
+   * Méthode de gestion des erreurs lors du chargement des joueurs. Affiche un message d'erreur en cas d'échec.
+   *
+   * @param {Object} xhr - Objet de la requête HTTP.
+   * @param {string} status - Statut de la requête.
+   * @param {string} error - Message d'erreur.
+   */
   gestionErreurJoueur(xhr, status, error) {
     console.error("Erreur lors du chargement des équipes :", status, error);
     alert(
@@ -152,6 +232,9 @@ class AuthentifieCtrl {
     );
   }
 
+  /**
+   * Affiche les informations du joueur sélectionné dans les champs du formulaire.
+   */
   afficheInfoJoueur() {
     var cmbJoueurs = document.getElementById("cmbJoueur");
     var joueurJson = JSON.parse(cmbJoueurs.value);
@@ -165,6 +248,11 @@ class AuthentifieCtrl {
     this.selectByText(joueurJson.fk_position);
   }
 
+  /**
+   * Sélectionne un élément dans la liste déroulante des positions en fonction du texte de l'option.
+   *
+   * @param {string} text - Le texte de l'option à sélectionner.
+   */
   selectByText(text) {
     let select = document.getElementById("cmbPosition");
     for (let option of select.options) {

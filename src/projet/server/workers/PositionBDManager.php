@@ -5,7 +5,8 @@ include_once('Connexion.php');
  * Classe PositionBDManager
  *
  * Cette classe permet la gestion des positions des joueurs dans la base de données
- *
+ * @author Simon Mauron
+ * @version 1
  */
 class PositionBDManager
 {

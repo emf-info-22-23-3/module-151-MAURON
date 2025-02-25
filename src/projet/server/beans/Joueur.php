@@ -3,7 +3,8 @@
  * Classe Joueur
  *
  * Cette classe représente un Joueur.
- *
+ * @author Simon Mauron
+ * @version 1
  */
 class Joueur
 {

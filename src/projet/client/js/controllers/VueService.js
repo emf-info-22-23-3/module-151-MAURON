@@ -1,7 +1,7 @@
 /*
   But :    Classe qui permet des charger les vues
   Auteur : Simon Mauron
-  Date :   11.06.2024 / V1.0
+  Date :   25.02.2025 / V1.0
 */
 
 class VueService {
