@@ -27,11 +27,13 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 		//Vérifie que l'utilisateur est connecté
 		if ($manager->isConnected()) {
 			$bdReader = new JoueurBDManager();
+			//vérifie si les variables existent et sont pas nulls
 			if (
 				!empty($_POST['nom']) and isset($_POST['nom']) and isset($_POST['dateNaissance']) and isset($_POST['numero']) and isset($_POST['nbrTitre'])
 				and isset($_POST['salaire']) and isset($_POST['nbrBut']) and isset($_POST['fk_position']) and isset($_POST['fk_equipe'])
 				and isset($_POST['fk_photo'])
 			) {
+				//Vérifie si l'ajout est réussie
 				if($bdReader->add(
 					htmlspecialchars($_POST['nom'], ENT_QUOTES, 'utf-8'),
 					htmlspecialchars($_POST['dateNaissance'], ENT_QUOTES, 'utf-8'),
@@ -66,12 +68,14 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			//lit les données brutes de la requête (php://input) et de les analyser en un tableau $vars
 			parse_str(file_get_contents("php://input"), $vars);
 
+			//vérifie si les variables existent et sont pas nulls
 			if (
 				$vars['nom'] != "" and isset($vars['nom']) and isset($vars['dateNaissance']) and isset($vars['numero']) and isset($vars['nbrTitre'])
 				and isset($vars['salaire']) and isset($vars['nbrBut']) and isset($vars['fk_position']) and isset($vars['pk_joueur'])
 			) {
 
 				$bdReader = new JoueurBDManager();
+				//Vérifie si la modification est réussie
 				if ($bdReader->update(
 					htmlspecialchars($vars['pk_joueur'], ENT_QUOTES, 'utf-8'),
 					htmlspecialchars($vars['nom'], ENT_QUOTES, 'utf-8'),
