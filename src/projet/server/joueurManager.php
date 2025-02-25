@@ -2,26 +2,29 @@
 include_once('workers/JoueurBDManager.php');
 include_once('SessionManager.php');
 include_once('beans/Joueur.php');
+
+// Vérification de l'existence de la requête HTTP
 if (isset($_SERVER['REQUEST_METHOD'])) {
 
-
-
+	//Récupération des joueurs en fonction d'une équipe 
 	if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['action'] == "joueurEquipe") {
 		$bdReader = new JoueurBDManager();
 		http_response_code(200);
 		echo $bdReader->getInXML($_GET['FK_equipe']);
 	}
 
-
+	//Récupération de tous les joueurs
 	if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['action'] == "allJoueur") {
 		$bdReader = new JoueurBDManager();
 		http_response_code(200);
 		echo $bdReader->getInXMLALL();
 	}
-
+    // Création d'une instance de SessionManager pour gérer les sessions utilisateur
 	$manager = new SessionManager();
 
+	//Gestion de l'ajout d'un joueur
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		//Vérifie que l'utilisateur est connecté
 		if ($manager->isConnected()) {
 			$bdReader = new JoueurBDManager();
 			if (
@@ -56,7 +59,9 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 		}
 	}
 
+	//Gestion de la modification des joueurs
 	if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+		//Vérifie que l'utilisateur est connecté
 		if ($manager->isConnected()) {
 			//lit les données brutes de la requête (php://input) et de les analyser en un tableau $vars
 			parse_str(file_get_contents("php://input"), $vars);
