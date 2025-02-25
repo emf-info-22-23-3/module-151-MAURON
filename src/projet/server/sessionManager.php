@@ -16,10 +16,6 @@ class SessionManager
      */
     public function openSession($user)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-
         // Stocke le nom de l'utilisateur dans la session
         $_SESSION['user'] = $user;
     }

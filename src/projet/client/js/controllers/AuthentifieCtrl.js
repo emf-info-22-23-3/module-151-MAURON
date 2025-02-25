@@ -103,6 +103,7 @@ class AuthentifieCtrl {
   deconnectSuccess(data, text, jqXHR) {
     if ($(data).find("result").text() != null) {
       sessionStorage.removeItem("isConnected");
+      sessionStorage.removeItem("utilisateur");
       alert("Déconnexion réussie :)");
       indexCtrl.loadNonAuthentifie();
     } else {

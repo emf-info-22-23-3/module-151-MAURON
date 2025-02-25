@@ -1,6 +1,6 @@
 <?php
 include_once('workers/JoueurBDManager.php');
-include_once('sessionManager.php');
+include_once('SessionManager.php');
 include_once('beans/Joueur.php');
 if (isset($_SERVER['REQUEST_METHOD'])) {
 
@@ -46,6 +46,9 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 					http_response_code(500);
 					echo '<result>false</result>';
 				}
+			} else {
+				http_response_code(400);
+				echo '<result>Champs invalide</result>';
 			}
 		} else {
 			http_response_code(401);
@@ -80,6 +83,9 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 					http_response_code(500);
 					echo '<result>false</result>';
 				}
+			} else {
+				http_response_code(400);
+				echo '<result>Champs invalide</result>';
 			}
 		} else {
 			http_response_code(401);

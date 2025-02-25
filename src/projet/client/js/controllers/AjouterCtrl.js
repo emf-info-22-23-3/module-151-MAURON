@@ -19,7 +19,7 @@ class AjouterCtrl {
     });
 
     retour.addEventListener("click", () => {
-        indexCtrl.loadAuthentifie();
+        indexCtrl.loadPage(sessionStorage.getItem("utilisateur"));
     })
 
   }
@@ -65,7 +65,7 @@ class AjouterCtrl {
 
     if($(data).text() == 'true'){
       alert("L'ajout du joueur s'est fait correctement");
-      indexCtrl.loadAuthentifie();
+      indexCtrl.loadPage(sessionStorage.getItem("utilisateur"));
     } else {
       alert("Une valeur entrée n'est pas valide");
     }

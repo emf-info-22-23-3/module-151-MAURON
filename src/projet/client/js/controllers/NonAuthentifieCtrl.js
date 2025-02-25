@@ -25,7 +25,8 @@ class NonAuthentifieCtrl {
         if ($(data).find("result").text() == 'true') {
             alert("Login ok");
             sessionStorage.setItem("isConnected", "true");
-            indexCtrl.loadPage($(data).find("user").text());
+            sessionStorage.setItem("utilisateur",$(data).find("user").text());
+            indexCtrl.loadPage(sessionStorage.getItem("utilisateur"));
         }
         else {
             alert("Erreur lors du login");

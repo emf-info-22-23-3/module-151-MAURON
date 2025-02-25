@@ -24,15 +24,14 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
                 } else {
                     http_response_code(401);
                     echo '<result>Mot de passe incorrect </result>';
-                    
                 }
             } else {
-                http_response_code(401);
+                http_response_code(404);
                 echo '<result>Username incorrecte</result>';
                
             }
         } else {
-            http_response_code(401);
+            http_response_code(400);
             echo '<result>Champs manquants</result>';
         }
     }

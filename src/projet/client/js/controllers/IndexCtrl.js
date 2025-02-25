@@ -11,17 +11,18 @@ $().ready(function () {
 });
 
 class IndexCtrl {
+  
   constructor() {
     this.vue = new VueService();
-    this.loadPage();
+    this.loadPage(sessionStorage.getItem("utilisateur"));
   }
 
   //Toutes ces méthodes permettent le chargement des pages
 
   loadPage(user) {
     if (sessionStorage.getItem("isConnected") === "true") {
-      console.log("charger");
       this.loadAuthentifie(user);
+
     } else {
       this.loadNonAuthentifie();
     }
