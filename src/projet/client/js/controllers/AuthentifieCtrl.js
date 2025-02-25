@@ -1,4 +1,3 @@
-
 class AuthentifieCtrl {
   constructor(user) {
     var cmbEquipe = document.getElementById("cmbEquipe");
@@ -13,7 +12,7 @@ class AuthentifieCtrl {
     $.getScript("js/beans/Position.js");
 
     http.chargerEquipe(this.chargerEquipeSuccess, this.gestionErreurEquipe);
-    http.chargerAllJoueur(this.chargerJoueurSuccess,this.gestionErreurJoueur);
+    http.chargerAllJoueur(this.chargerJoueurSuccess, this.gestionErreurJoueur);
     http.chargerPosition(
       this.chargerPositionSuccess,
       this.gestionErreurPosition
@@ -53,20 +52,24 @@ class AuthentifieCtrl {
 
   chargerEquipeSuccess(data, text, jqXHR) {
     var cmbEquipe = document.getElementById("cmbEquipe");
-    $(data).find("equipe").each(function () {
+    $(data)
+      .find("equipe")
+      .each(function () {
         var equipe = new Equipe();
         equipe.setNom($(this).find("nom").text());
         equipe.setPk($(this).find("pk_equipe").text());
         var option = new Option(equipe, equipe.getPk());
         cmbEquipe.options[cmbEquipe.options.length] = option;
       });
-      document.getElementById("cmbEquipe").selectedIndex = -1;
+    document.getElementById("cmbEquipe").selectedIndex = -1;
   }
 
   chargerJoueurSuccess(data, text, jqXHR) {
     var cmbJoueurs = document.getElementById("cmbJoueur");
     cmbJoueurs.options.length = 0;
-    $(data).find("joueur").each(function () {
+    $(data)
+      .find("joueur")
+      .each(function () {
         var joueur = new Joueur();
         joueur.setPK($(this).find("pk_joueur").text());
         joueur.setNom($(this).find("nom").text());
@@ -107,22 +110,16 @@ class AuthentifieCtrl {
     }
   }
 
-  afficheModificationSuccess(data,text, jqXHR) {
-    console.log("test");
-    console.log($(data).text());
-
-    if($(data).text() != null){
-    if($(data).text() == "true" ){
+  afficheModificationSuccess(data, text, jqXHR) {
+      if ($(data).text() == "true") {
         alert("Modification réussie");
-    } else {
+      } else {
         alert("Aucune donnée modifié ou donnée invalide");
-    }}else {
-        alert(" donnée invalide");
-    }
-}
+      }
+    } 
   
 
-  afficheModificationErreur(xhr,status, error) {
+  afficheModificationErreur(xhr, status, error) {
     console.error("Erreur lors de la modification du joueur:", status, error);
     alert(
       "Une erreur est survenue lors de la modification du joueur. Veuillez réessayer plus tard."
